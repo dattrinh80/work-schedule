@@ -1,23 +1,25 @@
 # Project Detection Report
 
-- Project type: `single-app`
-- Package manager: `None`
+- Project type: `monorepo`
+- Package manager: `pnpm`
 
 ## Stacks
-- No application stack confidently detected.
+- frontend: `{'framework': 'react', 'root': 'apps/web'}`
+- backend: `{'framework': 'nestjs', 'root': 'apps/api'}`
+- other: `[{'framework': 'node', 'root': 'packages/shared'}, {'framework': 'node', 'root': '.'}]`
 
 ## Datastores
-- None detected from conservative repository signals.
+- postgres
 
 ## Proposed commands
-- install: `NOT_CONFIGURED`
-- build: `NOT_CONFIGURED`
-- lint: `NOT_CONFIGURED`
-- typecheck: `NOT_CONFIGURED`
-- test: `NOT_CONFIGURED`
-- contract_test: `NOT_CONFIGURED`
-- architecture_test: `NOT_CONFIGURED`
-- ui_test: `NOT_CONFIGURED`
+- install: `pnpm install --frozen-lockfile`
+- build: `pnpm build`
+- lint: `pnpm lint`
+- typecheck: `pnpm typecheck`
+- test: `pnpm test`
+- contract_test: `pnpm test:contract`
+- architecture_test: `pnpm test:architecture`
+- ui_test: `pnpm test:ui`
 
 ## Important
 Generated commands are proposals. Review before merging into `.ai/harness/project-commands.yaml`.
