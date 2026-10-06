@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Task, TaskStatus } from '@wms/shared';
 import { StatusBadge, PriorityBadge } from './badge.js';

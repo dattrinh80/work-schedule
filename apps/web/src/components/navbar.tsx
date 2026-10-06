@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { User, Role } from '@wms/shared';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { CreateTaskDto, Facility, Role, Task, TaskStatus, User } from '@wms/shared';
 import { Navbar } from '../components/navbar.js';

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { AssignmentTargetType, CreateTaskDto, Facility, TaskPriority, User } from '@wms/shared';
 
