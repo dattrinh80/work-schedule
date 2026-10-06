@@ -1,0 +1,34 @@
+task_id: BOOTSTRAP-001
+status: REVIEWING
+workflow_version: "4.0.0"
+iterations: 1
+changed_files:
+  - packages/shared
+  - apps/api
+  - apps/web
+  - scripts
+  - .ai/harness/project-commands.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/evidence.yaml
+blocking_issues: []
+gate_history:
+  - gate_id: G1_REQUIREMENT
+    status: PASS
+    severity: blocking
+  - gate_id: G2_ARCHITECTURE
+    status: PASS
+    severity: blocking
+  - gate_id: G4_CONTRACT
+    status: PASS
+    severity: blocking
+  - gate_id: G5_QUALITY
+    status: PASS
+    severity: blocking
+  - gate_id: G7_SECURITY
+    status: PASS
+    severity: blocking
+  - gate_id: G8_UI
+    status: PASS
+    severity: blocking
+  - gate_id: G9_RELEASE
+    status: PASS
+    severity: blocking

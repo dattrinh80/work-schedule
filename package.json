@@ -1,0 +1,19 @@
+{
+  "name": "work-schedule-prj",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Work Management System (WMS) Monorepo",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "test:contract": "node scripts/contract-check.mjs",
+    "test:architecture": "node scripts/architecture-check.mjs",
+    "test:security": "node scripts/security-check.mjs",
+    "test:ui": "pnpm --filter @wms/web run test"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

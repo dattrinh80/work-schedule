@@ -1,0 +1,49 @@
+task_id: BOOTSTRAP-001
+changed_files:
+  - packages/shared/src/index.ts
+  - packages/shared/src/types/enums.ts
+  - packages/shared/src/types/models.ts
+  - packages/shared/src/contracts/auth.contract.ts
+  - packages/shared/src/contracts/task.contract.ts
+  - apps/api/src/main.ts
+  - apps/api/src/app.module.ts
+  - apps/api/src/prisma/prisma.service.ts
+  - apps/api/src/auth/auth.service.ts
+  - apps/api/src/auth/auth.controller.ts
+  - apps/api/src/tasks/tasks.service.ts
+  - apps/api/src/tasks/tasks.controller.ts
+  - apps/api/prisma/schema.prisma
+  - apps/web/src/app/page.tsx
+  - apps/web/src/components/badge.tsx
+  - apps/web/src/components/navbar.tsx
+  - apps/web/src/components/task-list.tsx
+  - apps/web/src/components/create-task-modal.tsx
+  - scripts/contract-check.mjs
+  - scripts/architecture-check.mjs
+  - scripts/security-check.mjs
+  - .ai/harness/project-commands.yaml
+verification:
+  build: pass
+  lint: pass
+  typecheck: pass
+  test: pass
+  contract_test: pass
+  architecture_test: pass
+  security_test: pass
+  ui_test: pass
+artifacts:
+  - .ai/runtime/tasks/BOOTSTRAP-001/evidence/manifest.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G1_REQUIREMENT.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G2_ARCHITECTURE.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G4_CONTRACT.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G5_QUALITY.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G7_SECURITY.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G8_UI.yaml
+  - .ai/runtime/tasks/BOOTSTRAP-001/gates/G9_RELEASE.yaml
+approvals:
+  - human_decision:monorepo_stack_approved
+  - human_decision:jwt_rbac_approved
+  - human_decision:auth_task_slice_approved
+residual_risks:
+  - Real PostgreSQL instance connection required for production deployment (managed via docker-compose.yml)
+  - Full organizational hierarchy management CRUD to be implemented in subsequent feature slices

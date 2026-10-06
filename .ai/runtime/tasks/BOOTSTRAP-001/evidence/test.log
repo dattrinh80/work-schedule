@@ -1,0 +1,45 @@
+$ pnpm -r run test
+Scope: 3 of 4 workspace projects
+packages/shared test$ node --test test/*.test.mjs
+packages/shared test: âœ” shared package exports correct enums and models (1.3965ms)
+packages/shared test: â„¹ tests 1
+packages/shared test: â„¹ suites 0
+packages/shared test: â„¹ pass 1
+packages/shared test: â„¹ fail 0
+packages/shared test: â„¹ cancelled 0
+packages/shared test: â„¹ skipped 0
+packages/shared test: â„¹ todo 0
+packages/shared test: â„¹ duration_ms 83.6782
+packages/shared test: Done
+apps/api test$ tsc -p tsconfig.json && node --test dist/test/**/*.test.js
+apps/web test$ tsc && node --test dist/test/*.test.js
+apps/web test: â–¶ WMS Web UI Deterministic Test Suite
+apps/web test:   âœ” StatusBadge: renders valid status tokens for all lifecycle statuses (1.2361ms)
+apps/web test:   âœ” PriorityBadge: renders valid styling tokens for all priorities (1.1848ms)
+apps/web test:   âœ” UI Tokens: enforce design tokens from UX baseline (0.195ms)
+apps/web test: âœ” WMS Web UI Deterministic Test Suite (3.8956ms)
+apps/web test: â„¹ tests 4
+apps/web test: â„¹ suites 0
+apps/web test: â„¹ pass 4
+apps/web test: â„¹ fail 0
+apps/web test: â„¹ cancelled 0
+apps/web test: â„¹ skipped 0
+apps/web test: â„¹ todo 0
+apps/web test: â„¹ duration_ms 125.8042
+apps/web test: Done
+apps/api test: â–¶ WMS Backend API Integration Suite
+apps/api test:   âœ” Auth: logs in successfully with valid admin credentials (66.0036ms)
+apps/api test:   âœ” Auth: rejects login with invalid password (64.8162ms)
+apps/api test:   âœ” Tasks: creates new task with facility and user assignment (0.3839ms)
+apps/api test:   âœ” Tasks: updates task status to COMPLETED and records completion audit (0.1991ms)
+apps/api test:   âœ” Tasks: enforces role-based task scoping for teachers (0.3048ms)
+apps/api test: âœ” WMS Backend API Integration Suite (265.6589ms)
+apps/api test: â„¹ tests 6
+apps/api test: â„¹ suites 0
+apps/api test: â„¹ pass 6
+apps/api test: â„¹ fail 0
+apps/api test: â„¹ cancelled 0
+apps/api test: â„¹ skipped 0
+apps/api test: â„¹ todo 0
+apps/api test: â„¹ duration_ms 807.66
+apps/api test: Done

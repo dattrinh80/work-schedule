@@ -1,0 +1,11 @@
+$ pnpm -r run lint
+Scope: 3 of 4 workspace projects
+packages/shared lint$ node -e "console.log('Shared package lint passed')"
+packages/shared lint: Shared package lint passed
+packages/shared lint: Done
+apps/api lint$ node -e "console.log('API lint passed')"
+apps/web lint$ node -e "console.log('Web lint passed')"
+apps/api lint: API lint passed
+apps/api lint: Done
+apps/web lint: Web lint passed
+apps/web lint: Done

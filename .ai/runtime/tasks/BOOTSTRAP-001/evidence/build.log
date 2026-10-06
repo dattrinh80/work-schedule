@@ -1,0 +1,8 @@
+$ pnpm -r run build
+Scope: 3 of 4 workspace projects
+packages/shared build$ tsc
+packages/shared build: Done
+apps/api build$ tsc -p tsconfig.build.json
+apps/web build$ tsc
+apps/web build: Done
+apps/api build: Done

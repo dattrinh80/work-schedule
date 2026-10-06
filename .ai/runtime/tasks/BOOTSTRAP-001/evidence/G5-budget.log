@@ -1,0 +1,13 @@
+Changed files: 12/60
+- .ai/harness/project-commands.yaml
+- .ai/runtime/tasks/BOOTSTRAP-001/
+- .gitignore
+- .npmrc
+- apps/
+- docker-compose.yml
+- package.json
+- packages/
+- pnpm-lock.yaml
+- pnpm-workspace.yaml
+- scripts/
+- tsconfig.json

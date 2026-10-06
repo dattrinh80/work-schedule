@@ -1,0 +1,40 @@
+id: BOOTSTRAP-001
+type: FEATURE
+title: Bootstrap WMS Monorepo Foundation and Thin Vertical Slice
+objective: Initialize monorepo workspace, setup project toolchains and rules, establish architecture/database/UX baselines, and implement the Auth & Core Task thin vertical slice with deterministic verification.
+scope:
+  include:
+    - packages/shared
+    - apps/api
+    - apps/web
+    - package.json
+    - pnpm-workspace.yaml
+    - tsconfig.json
+    - .ai/harness/project-commands.yaml
+    - docs/
+  exclude:
+    - unapproved third-party dependencies
+    - unrelated domain modules
+source_of_truth:
+  - docs/product/prd-master.md
+  - docs/adr/ADR-001-technology-stack.md
+  - docs/adr/ADR-002-authentication-and-hierarchical-rbac.md
+  - docs/adr/ADR-003-data-modeling-and-assignment-strategy.md
+  - docs/decisions/DECISION-001-bootstrap-vertical-slice.md
+  - docs/architecture/architecture-baseline.md
+  - docs/database/database-baseline.md
+  - docs/ux/ux-foundation.md
+  - docs/api/api-contracts.md
+constraints:
+  - no unrelated refactor
+  - deterministic verification passes
+  - strict TypeScript compilation
+acceptance_criteria:
+  - Monorepo structure created with packages/shared, apps/api, and apps/web
+  - Prisma schema with Facility, Department, Team, User, Task entities
+  - Backend API with JWT authentication and Task CRUD/Status endpoints
+  - Frontend web application with login screen, authenticated header, task list and task creation modal
+  - Deterministic build, lint, typecheck, and unit/integration tests configured and passing in .ai/harness/project-commands.yaml
+  - All applicable blocking gates pass and evidence manifest is collected
+risk: medium
+unresolved_questions: []
