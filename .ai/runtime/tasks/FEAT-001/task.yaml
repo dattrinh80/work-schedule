@@ -1,0 +1,33 @@
+id: FEAT-001
+type: FEATURE
+title: Full-Stack Live Integration and Comprehensive Task Lifecycle
+objective: Connect web client to backend API via live HTTP and JWT auth, add metadata endpoints, enable full task lifecycle transitions, task deletion/cancellation, and detailed task inspection.
+scope:
+  include:
+    - packages/shared/src/contracts/task.contract.ts
+    - apps/api/src/tasks/
+    - apps/api/src/organizations/
+    - apps/web/src/lib/api.ts
+    - apps/web/src/components/
+    - apps/web/src/app/page.tsx
+    - apps/api/test/api.test.ts
+    - apps/web/test/ui.test.ts
+    - scripts/contract-check.mjs
+  exclude:
+    - unapproved third party libraries
+    - unrelated modules
+source_of_truth:
+  - docs/product/prd-master.md
+  - docs/superpowers/specs/2026-10-06-task-management-fullstack-design.md
+constraints:
+  - no unrelated refactor
+  - strict TypeScript compilation
+  - all deterministic checks pass
+acceptance_criteria:
+  - Backend API exposes GET facilities, GET users, PATCH task details, and DELETE task
+  - Full task lifecycle status transitions supported in API and UI
+  - Web client connects live to API with token authentication and error handling
+  - Task detail inspection modal displays creator, dates, and status
+  - All automated blocking gates pass with evidence collected
+risk: medium
+unresolved_questions: []
