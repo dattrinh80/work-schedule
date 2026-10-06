@@ -25,16 +25,53 @@ for (const exp of expectedExports) {
   }
 }
 
-// 2. Verify API Controller implements required contract routes
-const tasksControllerPath = path.join(root, 'apps/api/src/tasks/tasks.controller.ts');
-const authControllerPath = path.join(root, 'apps/api/src/auth/auth.controller.ts');
+// Check UpdateTaskDto
+const taskContractContent = fs.readFileSync(
+  path.join(root, 'packages/shared/src/contracts/task.contract.ts'),
+  'utf8',
+);
+if (!taskContractContent.includes('interface UpdateTaskDto')) {
+  console.error('FAIL: packages/shared missing UpdateTaskDto');
+  process.exit(1);
+}
 
-const tasksController = fs.readFileSync(tasksControllerPath, 'utf8');
-const authController = fs.readFileSync(authControllerPath, 'utf8');
+// 2. Verify API Controllers implement required contract routes
+const tasksController = fs.readFileSync(
+  path.join(root, 'apps/api/src/tasks/tasks.controller.ts'),
+  'utf8',
+);
+const authController = fs.readFileSync(
+  path.join(root, 'apps/api/src/auth/auth.controller.ts'),
+  'utf8',
+);
+const orgController = fs.readFileSync(
+  path.join(root, 'apps/api/src/organizations/organizations.controller.ts'),
+  'utf8',
+);
 
 const requiredRoutes = [
-  { file: 'AuthController', content: authController, routes: ["@Post('login')", "@Get('me')"] },
-  { file: 'TasksController', content: tasksController, routes: ['@Post()', '@Get()', "@Get(':id')", "@Patch(':id/status')"] },
+  {
+    file: 'AuthController',
+    content: authController,
+    routes: ["@Post('login')", "@Get('me')"],
+  },
+  {
+    file: 'OrganizationsController',
+    content: orgController,
+    routes: ["@Get('facilities')", "@Get('users')"],
+  },
+  {
+    file: 'TasksController',
+    content: tasksController,
+    routes: [
+      '@Post()',
+      '@Get()',
+      "@Get(':id')",
+      "@Patch(':id')",
+      "@Patch(':id/status')",
+      "@Delete(':id')",
+    ],
+  },
 ];
 
 for (const check of requiredRoutes) {

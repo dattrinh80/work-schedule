@@ -1,29 +1,53 @@
-import React, { useState } from 'react';
-import { AssignmentTargetType, CreateTaskDto, TaskPriority } from '@wms/shared';
+import React, { useState, useEffect } from 'react';
+import { AssignmentTargetType, CreateTaskDto, Facility, TaskPriority, User } from '@wms/shared';
 
 interface CreateTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (task: CreateTaskDto) => void;
-  facilityId: string;
+  facilities: Facility[];
+  users: User[];
+  defaultFacilityId: string;
 }
 
-export function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: CreateTaskModalProps) {
+export function CreateTaskModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  facilities,
+  users,
+  defaultFacilityId,
+}: CreateTaskModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<TaskPriority>(TaskPriority.MEDIUM);
-  const [assigneeUserId, setAssigneeUserId] = useState('usr-staff-01');
+  const [facilityId, setFacilityId] = useState(defaultFacilityId);
+  const [assigneeUserId, setAssigneeUserId] = useState('');
+  const [dueDate, setDueDate] = useState('');
+
+  useEffect(() => {
+    if (defaultFacilityId) {
+      setFacilityId(defaultFacilityId);
+    }
+  }, [defaultFacilityId]);
+
+  useEffect(() => {
+    if (users.length > 0 && !assigneeUserId) {
+      setAssigneeUserId(users[0].id);
+    }
+  }, [users, assigneeUserId]);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || !facilityId) return;
 
     onSubmit({
       title: title.trim(),
       description: description.trim() || undefined,
       priority,
+      dueDate: dueDate ? new Date(dueDate).toISOString() : undefined,
       facilityId,
       assignmentTargetType: AssignmentTargetType.USER,
       assigneeUserId: assigneeUserId || undefined,
@@ -31,6 +55,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: Creat
 
     setTitle('');
     setDescription('');
+    setDueDate('');
     onClose();
   };
 
@@ -41,7 +66,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: Creat
           <h2 className="text-lg font-bold text-zinc-900">Create New Task</h2>
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-zinc-600 font-medium text-sm"
+            className="text-zinc-400 hover:text-zinc-600 font-medium text-sm p-1"
           >
             ✕
           </button>
@@ -78,6 +103,23 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: Creat
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold uppercase text-zinc-600 mb-1">
+                Facility / Branch *
+              </label>
+              <select
+                value={facilityId}
+                onChange={(e) => setFacilityId(e.target.value)}
+                className="w-full px-3 py-2 border border-zinc-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+              >
+                {facilities.map((fac) => (
+                  <option key={fac.id} value={fac.id}>
+                    {fac.name} ({fac.code})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase text-zinc-600 mb-1">
                 Priority
               </label>
               <select
@@ -91,7 +133,9 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: Creat
                 <option value={TaskPriority.URGENT}>Urgent</option>
               </select>
             </div>
+          </div>
 
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold uppercase text-zinc-600 mb-1">
                 Assignee
@@ -101,9 +145,24 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: Creat
                 onChange={(e) => setAssigneeUserId(e.target.value)}
                 className="w-full px-3 py-2 border border-zinc-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
               >
-                <option value="usr-staff-01">Sarah Jenkins (Teacher)</option>
-                <option value="usr-admin-01">System Administrator</option>
+                {users.map((u) => (
+                  <option key={u.id} value={u.id}>
+                    {u.fullName} ({u.role})
+                  </option>
+                ))}
               </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase text-zinc-600 mb-1">
+                Due Date
+              </label>
+              <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="w-full px-3 py-2 border border-zinc-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+              />
             </div>
           </div>
 

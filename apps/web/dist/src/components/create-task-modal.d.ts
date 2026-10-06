@@ -1,10 +1,12 @@
 import React from 'react';
-import { CreateTaskDto } from '@wms/shared';
+import { CreateTaskDto, Facility, User } from '@wms/shared';
 interface CreateTaskModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (task: CreateTaskDto) => void;
-    facilityId: string;
+    facilities: Facility[];
+    users: User[];
+    defaultFacilityId: string;
 }
-export declare function CreateTaskModal({ isOpen, onClose, onSubmit, facilityId }: CreateTaskModalProps): React.JSX.Element | null;
+export declare function CreateTaskModal({ isOpen, onClose, onSubmit, facilities, users, defaultFacilityId, }: CreateTaskModalProps): React.JSX.Element | null;
 export {};

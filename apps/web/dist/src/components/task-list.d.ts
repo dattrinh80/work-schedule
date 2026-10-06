@@ -4,6 +4,8 @@ interface TaskListProps {
     tasks: Task[];
     onStatusChange: (taskId: string, newStatus: TaskStatus) => void;
     onOpenCreateModal: () => void;
+    onSelectTask: (task: Task) => void;
+    onDeleteTask: (taskId: string) => void;
 }
-export declare function TaskList({ tasks, onStatusChange, onOpenCreateModal }: TaskListProps): React.JSX.Element;
+export declare function TaskList({ tasks, onStatusChange, onOpenCreateModal, onSelectTask, onDeleteTask, }: TaskListProps): React.JSX.Element;
 export {};
