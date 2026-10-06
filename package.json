@@ -11,7 +11,9 @@
     "test:contract": "node scripts/contract-check.mjs",
     "test:architecture": "node scripts/architecture-check.mjs",
     "test:security": "node scripts/security-check.mjs",
-    "test:ui": "pnpm --filter @wms/web run test"
+    "test:ui": "pnpm --filter @wms/web run test",
+    "dev:web": "pnpm --filter @wms/web run dev",
+    "dev:api": "pnpm --filter @wms/api run start:dev"
   },
   "devDependencies": {
     "typescript": "^5.4.5"
