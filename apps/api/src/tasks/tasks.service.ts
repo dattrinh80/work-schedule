@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskInputDto } from './dto/create-task.dto';
+import { UpdateTaskInputDto } from './dto/update-task.dto';
 import { UpdateTaskStatusInputDto } from './dto/update-status.dto';
 import {
   AssignmentTargetType,
@@ -112,6 +113,40 @@ export class TasksService {
     return task;
   }
 
+  async update(id: string, dto: UpdateTaskInputDto, _currentUser: User): Promise<Task> {
+    const task = this.prisma.store.tasks.get(id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+
+    if (dto.title !== undefined) task.title = dto.title;
+    if (dto.description !== undefined) task.description = dto.description;
+    if (dto.priority !== undefined) task.priority = dto.priority;
+    if (dto.startDate !== undefined) task.startDate = dto.startDate;
+    if (dto.dueDate !== undefined) task.dueDate = dto.dueDate;
+
+    if (dto.assigneeUserId !== undefined) {
+      if (dto.assigneeUserId) {
+        const foundUser = this.prisma.store.users.get(dto.assigneeUserId);
+        if (!foundUser) {
+          throw new BadRequestException(`Assignee user with ID ${dto.assigneeUserId} does not exist`);
+        }
+        task.assigneeUserId = dto.assigneeUserId;
+        task.assigneeUser = { id: foundUser.id, fullName: foundUser.fullName, email: foundUser.email };
+        if (task.status === TaskStatus.NEW) {
+          task.status = TaskStatus.ASSIGNED;
+        }
+      } else {
+        task.assigneeUserId = null;
+        task.assigneeUser = null;
+      }
+    }
+
+    task.updatedAt = new Date().toISOString();
+    this.prisma.store.tasks.set(id, task);
+    return task;
+  }
+
   async updateStatus(id: string, dto: UpdateTaskStatusInputDto, currentUser: User): Promise<Task> {
     const task = this.prisma.store.tasks.get(id);
     if (!task) {
@@ -131,5 +166,23 @@ export class TasksService {
 
     this.prisma.store.tasks.set(id, task);
     return task;
+  }
+
+  async remove(id: string, currentUser: User): Promise<{ success: boolean; id: string }> {
+    const task = this.prisma.store.tasks.get(id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+
+    if (
+      currentUser.role !== Role.SUPER_ADMIN &&
+      currentUser.role !== Role.ADMIN &&
+      task.creatorId !== currentUser.id
+    ) {
+      throw new BadRequestException('Only administrators or the task creator can delete this task');
+    }
+
+    this.prisma.store.tasks.delete(id);
+    return { success: true, id };
   }
 }

@@ -14,6 +14,14 @@ export interface CreateTaskDto {
     assigneeTeamId?: string;
     assigneeDepartmentId?: string;
 }
+export interface UpdateTaskDto {
+    title?: string;
+    description?: string;
+    priority?: TaskPriority;
+    startDate?: string;
+    dueDate?: string;
+    assigneeUserId?: string;
+}
 export interface UpdateTaskStatusDto {
     status: TaskStatus;
 }

@@ -95,6 +95,42 @@ let TasksService = class TasksService {
         }
         return task;
     }
+    async update(id, dto, _currentUser) {
+        const task = this.prisma.store.tasks.get(id);
+        if (!task) {
+            throw new common_1.NotFoundException(`Task with ID ${id} not found`);
+        }
+        if (dto.title !== undefined)
+            task.title = dto.title;
+        if (dto.description !== undefined)
+            task.description = dto.description;
+        if (dto.priority !== undefined)
+            task.priority = dto.priority;
+        if (dto.startDate !== undefined)
+            task.startDate = dto.startDate;
+        if (dto.dueDate !== undefined)
+            task.dueDate = dto.dueDate;
+        if (dto.assigneeUserId !== undefined) {
+            if (dto.assigneeUserId) {
+                const foundUser = this.prisma.store.users.get(dto.assigneeUserId);
+                if (!foundUser) {
+                    throw new common_1.BadRequestException(`Assignee user with ID ${dto.assigneeUserId} does not exist`);
+                }
+                task.assigneeUserId = dto.assigneeUserId;
+                task.assigneeUser = { id: foundUser.id, fullName: foundUser.fullName, email: foundUser.email };
+                if (task.status === shared_1.TaskStatus.NEW) {
+                    task.status = shared_1.TaskStatus.ASSIGNED;
+                }
+            }
+            else {
+                task.assigneeUserId = null;
+                task.assigneeUser = null;
+            }
+        }
+        task.updatedAt = new Date().toISOString();
+        this.prisma.store.tasks.set(id, task);
+        return task;
+    }
     async updateStatus(id, dto, currentUser) {
         const task = this.prisma.store.tasks.get(id);
         if (!task) {
@@ -112,6 +148,19 @@ let TasksService = class TasksService {
         }
         this.prisma.store.tasks.set(id, task);
         return task;
+    }
+    async remove(id, currentUser) {
+        const task = this.prisma.store.tasks.get(id);
+        if (!task) {
+            throw new common_1.NotFoundException(`Task with ID ${id} not found`);
+        }
+        if (currentUser.role !== shared_1.Role.SUPER_ADMIN &&
+            currentUser.role !== shared_1.Role.ADMIN &&
+            task.creatorId !== currentUser.id) {
+            throw new common_1.BadRequestException('Only administrators or the task creator can delete this task');
+        }
+        this.prisma.store.tasks.delete(id);
+        return { success: true, id };
     }
 };
 exports.TasksService = TasksService;

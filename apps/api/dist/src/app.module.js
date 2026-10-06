@@ -11,12 +11,14 @@ const common_1 = require("@nestjs/common");
 const prisma_module_1 = require("./prisma/prisma.module");
 const auth_module_1 = require("./auth/auth.module");
 const tasks_module_1 = require("./tasks/tasks.module");
+const organizations_controller_1 = require("./organizations/organizations.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [prisma_module_1.PrismaModule, auth_module_1.AuthModule, tasks_module_1.TasksModule],
+        controllers: [organizations_controller_1.OrganizationsController],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

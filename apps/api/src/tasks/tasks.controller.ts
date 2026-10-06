@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -12,9 +13,9 @@ import { TasksService } from './tasks.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { CreateTaskInputDto } from './dto/create-task.dto';
+import { UpdateTaskInputDto } from './dto/update-task.dto';
 import { UpdateTaskStatusInputDto } from './dto/update-status.dto';
 import {
-  Role,
   Task,
   TaskFilterDto,
   TaskListResponseDto,
@@ -61,6 +62,15 @@ export class TasksController {
     return this.tasksService.findOne(id, user);
   }
 
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() body: UpdateTaskInputDto,
+    @CurrentUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.update(id, body, user);
+  }
+
   @Patch(':id/status')
   async updateStatus(
     @Param('id') id: string,
@@ -68,5 +78,13 @@ export class TasksController {
     @CurrentUser() user: User,
   ): Promise<Task> {
     return this.tasksService.updateStatus(id, body, user);
+  }
+
+  @Delete(':id')
+  async remove(
+    @Param('id') id: string,
+    @CurrentUser() user: User,
+  ): Promise<{ success: boolean; id: string }> {
+    return this.tasksService.remove(id, user);
   }
 }

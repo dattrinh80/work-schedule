@@ -1,5 +1,6 @@
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskInputDto } from './dto/create-task.dto';
+import { UpdateTaskInputDto } from './dto/update-task.dto';
 import { UpdateTaskStatusInputDto } from './dto/update-status.dto';
 import { Task, TaskFilterDto, TaskListResponseDto, User } from '@wms/shared';
 export declare class TasksService {
@@ -8,5 +9,10 @@ export declare class TasksService {
     create(dto: CreateTaskInputDto, currentUser: User): Promise<Task>;
     findAll(filter: TaskFilterDto, currentUser: User): Promise<TaskListResponseDto>;
     findOne(id: string, _currentUser: User): Promise<Task>;
+    update(id: string, dto: UpdateTaskInputDto, _currentUser: User): Promise<Task>;
     updateStatus(id: string, dto: UpdateTaskStatusInputDto, currentUser: User): Promise<Task>;
+    remove(id: string, currentUser: User): Promise<{
+        success: boolean;
+        id: string;
+    }>;
 }

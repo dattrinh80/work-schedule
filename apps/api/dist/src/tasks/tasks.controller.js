@@ -18,6 +18,7 @@ const tasks_service_1 = require("./tasks.service");
 const jwt_guard_1 = require("../auth/jwt.guard");
 const current_user_decorator_1 = require("../auth/current-user.decorator");
 const create_task_dto_1 = require("./dto/create-task.dto");
+const update_task_dto_1 = require("./dto/update-task.dto");
 const update_status_dto_1 = require("./dto/update-status.dto");
 const shared_1 = require("@wms/shared");
 let TasksController = class TasksController {
@@ -39,8 +40,14 @@ let TasksController = class TasksController {
     async findOne(id, user) {
         return this.tasksService.findOne(id, user);
     }
+    async update(id, body, user) {
+        return this.tasksService.update(id, body, user);
+    }
     async updateStatus(id, body, user) {
         return this.tasksService.updateStatus(id, body, user);
+    }
+    async remove(id, user) {
+        return this.tasksService.remove(id, user);
     }
 };
 exports.TasksController = TasksController;
@@ -72,6 +79,15 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "findOne", null);
 __decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, current_user_decorator_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_task_dto_1.UpdateTaskInputDto, Object]),
+    __metadata("design:returntype", Promise)
+], TasksController.prototype, "update", null);
+__decorate([
     (0, common_1.Patch)(':id/status'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -80,6 +96,14 @@ __decorate([
     __metadata("design:paramtypes", [String, update_status_dto_1.UpdateTaskStatusInputDto, Object]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "updateStatus", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], TasksController.prototype, "remove", null);
 exports.TasksController = TasksController = __decorate([
     (0, common_1.Controller)('api/v1/tasks'),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
