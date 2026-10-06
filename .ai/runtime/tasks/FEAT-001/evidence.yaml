@@ -1,0 +1,38 @@
+task_id: FEAT-001
+changed_files:
+  - packages/shared/src/contracts/task.contract.ts
+  - apps/api/src/organizations/organizations.controller.ts
+  - apps/api/src/tasks/dto/update-task.dto.ts
+  - apps/api/src/tasks/tasks.service.ts
+  - apps/api/src/tasks/tasks.controller.ts
+  - apps/api/src/app.module.ts
+  - apps/api/test/api.test.ts
+  - apps/web/src/lib/api.ts
+  - apps/web/src/components/task-detail-modal.tsx
+  - apps/web/src/components/create-task-modal.tsx
+  - apps/web/src/components/task-list.tsx
+  - apps/web/src/app/page.tsx
+  - apps/web/test/ui.test.ts
+  - scripts/contract-check.mjs
+verification:
+  build: pass
+  lint: pass
+  typecheck: pass
+  test: pass
+  contract_test: pass
+  architecture_test: pass
+  security_test: pass
+  ui_test: pass
+artifacts:
+  - .ai/runtime/tasks/FEAT-001/evidence/manifest.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G1_REQUIREMENT.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G2_ARCHITECTURE.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G4_CONTRACT.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G5_QUALITY.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G7_SECURITY.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G8_UI.yaml
+  - .ai/runtime/tasks/FEAT-001/gates/G9_RELEASE.yaml
+approvals:
+  - user_approved_design_spec
+residual_risks:
+  - PostgreSQL persistent database migrations to be linked in next phase when deploying containerized environment

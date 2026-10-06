@@ -1,0 +1,42 @@
+task_id: FEAT-001
+status: REVIEWING
+workflow_version: "4.0.0"
+iterations: 1
+changed_files:
+  - packages/shared/src/contracts/task.contract.ts
+  - apps/api/src/organizations/organizations.controller.ts
+  - apps/api/src/tasks/dto/update-task.dto.ts
+  - apps/api/src/tasks/tasks.service.ts
+  - apps/api/src/tasks/tasks.controller.ts
+  - apps/api/src/app.module.ts
+  - apps/api/test/api.test.ts
+  - apps/web/src/lib/api.ts
+  - apps/web/src/components/task-detail-modal.tsx
+  - apps/web/src/components/create-task-modal.tsx
+  - apps/web/src/components/task-list.tsx
+  - apps/web/src/app/page.tsx
+  - apps/web/test/ui.test.ts
+  - scripts/contract-check.mjs
+blocking_issues: []
+gate_history:
+  - gate_id: G1_REQUIREMENT
+    status: PASS
+    severity: blocking
+  - gate_id: G2_ARCHITECTURE
+    status: PASS
+    severity: blocking
+  - gate_id: G4_CONTRACT
+    status: PASS
+    severity: blocking
+  - gate_id: G5_QUALITY
+    status: PASS
+    severity: blocking
+  - gate_id: G7_SECURITY
+    status: PASS
+    severity: blocking
+  - gate_id: G8_UI
+    status: PASS
+    severity: blocking
+  - gate_id: G9_RELEASE
+    status: PASS
+    severity: blocking

@@ -1,0 +1,15 @@
+$ tsc && node --test dist/test/*.test.js
+â–¶ WMS Web UI Deterministic Test Suite
+  âœ” StatusBadge: renders valid status tokens for all lifecycle statuses (1.5146ms)
+  âœ” PriorityBadge: renders valid styling tokens for all priorities (0.9361ms)
+  âœ” UI Tokens: enforce design tokens from UX baseline (0.2118ms)
+  âœ” API Client: provides required methods and token storage (0.1908ms)
+âœ” WMS Web UI Deterministic Test Suite (5.3631ms)
+â„¹ tests 5
+â„¹ suites 0
+â„¹ pass 5
+â„¹ fail 0
+â„¹ cancelled 0
+â„¹ skipped 0
+â„¹ todo 0
+â„¹ duration_ms 107.6505

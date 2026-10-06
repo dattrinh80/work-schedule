@@ -1,0 +1,49 @@
+$ pnpm -r run test
+Scope: 3 of 4 workspace projects
+packages/shared test$ node --test test/*.test.mjs
+packages/shared test: âœ” shared package exports correct enums and models (1.3902ms)
+packages/shared test: â„¹ tests 1
+packages/shared test: â„¹ suites 0
+packages/shared test: â„¹ pass 1
+packages/shared test: â„¹ fail 0
+packages/shared test: â„¹ cancelled 0
+packages/shared test: â„¹ skipped 0
+packages/shared test: â„¹ todo 0
+packages/shared test: â„¹ duration_ms 79.1119
+packages/shared test: Done
+apps/api test$ tsc -p tsconfig.json && node --test dist/test/**/*.test.js
+apps/web test$ tsc && node --test dist/test/*.test.js
+apps/web test: â–¶ WMS Web UI Deterministic Test Suite
+apps/web test:   âœ” StatusBadge: renders valid status tokens for all lifecycle statuses (1.3394ms)
+apps/web test:   âœ” PriorityBadge: renders valid styling tokens for all priorities (0.2898ms)
+apps/web test:   âœ” UI Tokens: enforce design tokens from UX baseline (0.24ms)
+apps/web test:   âœ” API Client: provides required methods and token storage (0.1954ms)
+apps/web test: âœ” WMS Web UI Deterministic Test Suite (3.9476ms)
+apps/web test: â„¹ tests 5
+apps/web test: â„¹ suites 0
+apps/web test: â„¹ pass 5
+apps/web test: â„¹ fail 0
+apps/web test: â„¹ cancelled 0
+apps/web test: â„¹ skipped 0
+apps/web test: â„¹ todo 0
+apps/web test: â„¹ duration_ms 110.5679
+apps/web test: Done
+apps/api test: â–¶ WMS Backend API Integration Suite
+apps/api test:   âœ” Auth: logs in successfully with valid admin credentials (65.6918ms)
+apps/api test:   âœ” Auth: rejects login with invalid password (64.9228ms)
+apps/api test:   âœ” Organizations: returns active facilities and sanitized users (0.341ms)
+apps/api test:   âœ” Tasks: creates new task with facility and user assignment (0.3194ms)
+apps/api test:   âœ” Tasks: updates task details and changes status to BLOCKED and CANCELLED (0.344ms)
+apps/api test:   âœ” Tasks: updates task status to COMPLETED and records completion audit (0.1503ms)
+apps/api test:   âœ” Tasks: removes task when deleted by authorized admin (0.3998ms)
+apps/api test:   âœ” Tasks: enforces role-based task scoping for teachers (0.2554ms)
+apps/api test: âœ” WMS Backend API Integration Suite (287.4129ms)
+apps/api test: â„¹ tests 9
+apps/api test: â„¹ suites 0
+apps/api test: â„¹ pass 9
+apps/api test: â„¹ fail 0
+apps/api test: â„¹ cancelled 0
+apps/api test: â„¹ skipped 0
+apps/api test: â„¹ todo 0
+apps/api test: â„¹ duration_ms 795.3873
+apps/api test: Done
