@@ -1,0 +1,4 @@
+name: git-worker-create
+implementation: .ai/cli/git_worker.py create
+requires: [task_id, worker_id]
+outputs: [worker_branch, worker_worktree, base_commit]

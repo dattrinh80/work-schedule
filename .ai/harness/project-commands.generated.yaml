@@ -1,0 +1,9 @@
+commands:
+  install: ''
+  build: ''
+  lint: ''
+  typecheck: ''
+  test: ''
+  contract_test: ''
+  architecture_test: ''
+  ui_test: ''

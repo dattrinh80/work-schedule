@@ -1,0 +1,10 @@
+id: WORK-001
+task_id: PROJECT-001
+role: frontend
+status: PENDING
+objective: Replace me
+allowed_paths: []
+forbidden_paths: []
+depends_on: []
+contract_versions: {}
+evidence: []

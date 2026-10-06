@@ -1,0 +1,8 @@
+id: G5_QUALITY
+blocking: true
+checks:
+  - build_passes
+  - lint_passes
+  - typecheck_passes
+  - tests_pass
+  - scope_within_plan

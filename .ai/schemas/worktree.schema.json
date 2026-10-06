@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Worker Worktree",
+  "type": "object",
+  "required": [
+    "worker_id",
+    "task_id",
+    "branch",
+    "worktree_path",
+    "base_commit",
+    "status"
+  ],
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "worktree_path": {
+      "type": "string"
+    },
+    "base_commit": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "CREATED",
+        "ACTIVE",
+        "DONE",
+        "MERGED",
+        "CONFLICT",
+        "REMOVED"
+      ]
+    },
+    "head_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "merged_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

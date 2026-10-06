@@ -1,0 +1,7 @@
+id: G7_SECURITY
+blocking: true
+checks:
+  - no_secrets
+  - access_control_verified
+  - unsafe_input_handled
+  - prohibited_operations_absent

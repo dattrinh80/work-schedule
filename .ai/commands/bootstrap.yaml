@@ -1,0 +1,16 @@
+name: bootstrap
+workflow: bootstrap
+requires:
+  - product_source
+gates:
+  - requirement
+  - architecture
+  - database
+  - security
+outputs:
+  - architecture_baseline
+  - database_baseline
+  - ux_foundation_if_applicable
+  - project_rules
+  - thin_vertical_slice
+  - evidence_package

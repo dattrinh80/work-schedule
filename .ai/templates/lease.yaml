@@ -1,0 +1,7 @@
+lease_id: LEASE-001
+task_id: PROJECT-001
+worker_id: WORK-001
+paths: []
+status: ACTIVE
+created_at: ""
+released_at: null

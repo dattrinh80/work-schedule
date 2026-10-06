@@ -1,0 +1,49 @@
+name: bugfix
+version: "4.0.0"
+entry: intake
+
+nodes:
+  intake:
+    type: action
+    next: reproduce
+
+  reproduce:
+    type: action
+    next: root_cause
+
+  root_cause:
+    type: action
+    next: minimal_fix
+
+  minimal_fix:
+    type: action
+    next: regression_test
+
+  regression_test:
+    type: action
+    next: quality_gate
+
+  quality_gate:
+    type: gate
+    gate: G5_QUALITY
+    on:
+      PASS: evidence_package
+      REPAIR: minimal_fix
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+
+  evidence_package:
+    type: action
+    next: done
+
+  done:
+    type: terminal
+    state: DONE
+
+  BLOCKED:
+    type: terminal
+    state: BLOCKED
+
+  WAITING_APPROVAL:
+    type: terminal
+    state: WAITING_APPROVAL

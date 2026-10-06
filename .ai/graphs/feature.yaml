@@ -1,0 +1,127 @@
+name: feature
+version: "4.0.0"
+entry: intake
+
+nodes:
+  intake:
+    type: action
+    next: requirement_gate
+
+  requirement_gate:
+    type: gate
+    gate: G1_REQUIREMENT
+    on:
+      PASS: compile_context
+      REPAIR: intake
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+
+  compile_context:
+    type: action
+    next: repository_analysis
+
+  repository_analysis:
+    type: action
+    next: implementation_plan
+
+  implementation_plan:
+    type: action
+    next: architecture_gate
+
+  architecture_gate:
+    type: gate
+    gate: G2_ARCHITECTURE
+    on:
+      PASS: contract_preparation
+      REPAIR: implementation_plan
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+
+  contract_preparation:
+    type: action
+    next: contract_gate
+
+  contract_gate:
+    type: gate
+    gate: G4_CONTRACT
+    on:
+      PASS: implementation_parallel
+      REPAIR: contract_preparation
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+
+  implementation_parallel:
+    type: parallel
+    branches:
+      - frontend_implementation
+      - backend_implementation
+      - test_preparation
+    join: integration
+
+  frontend_implementation:
+    type: action
+    next: integration
+
+  backend_implementation:
+    type: action
+    next: integration
+
+  test_preparation:
+    type: action
+    next: integration
+
+  integration:
+    type: action
+    next: verification
+
+  verification:
+    type: action
+    next: security_gate
+
+  security_gate:
+    type: gate
+    gate: G7_SECURITY
+    on:
+      PASS: quality_gate
+      REPAIR: verification
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+
+  quality_gate:
+    type: gate
+    gate: G5_QUALITY
+    on:
+      PASS: ui_gate
+      REPAIR: verification
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+
+  ui_gate:
+    type: gate
+    gate: G8_UI
+    on:
+      PASS: diff_review
+      REPAIR: verification
+      BLOCK: BLOCKED
+      HUMAN_REVIEW: WAITING_APPROVAL
+      CANCELLED: diff_review
+
+  diff_review:
+    type: action
+    next: evidence_package
+
+  evidence_package:
+    type: action
+    next: done
+
+  done:
+    type: terminal
+    state: DONE
+
+  BLOCKED:
+    type: terminal
+    state: BLOCKED
+
+  WAITING_APPROVAL:
+    type: terminal
+    state: WAITING_APPROVAL

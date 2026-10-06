@@ -1,0 +1,4 @@
+name: launch-worker
+implementation: .ai/cli/worker_launcher.py launch
+requires: [task_id, worker_id, runtime]
+outputs: [launch_record, stdout_log, stderr_log, worker_status]

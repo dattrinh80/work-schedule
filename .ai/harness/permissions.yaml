@@ -1,0 +1,38 @@
+default: deny
+
+roles:
+  planner:
+    filesystem:
+      read: ["**"]
+      write: [".ai/runtime/**"]
+    shell: []
+
+  frontend:
+    filesystem:
+      read: ["**"]
+      write: ["frontend/**", "src/frontend/**", "packages/ui/**", ".ai/runtime/**"]
+    shell:
+      allow: ["test", "lint", "typecheck", "build"]
+
+  backend:
+    filesystem:
+      read: ["**"]
+      write: ["backend/**", "src/backend/**", "packages/domain/**", ".ai/runtime/**"]
+    shell:
+      allow: ["test", "lint", "typecheck", "build"]
+
+  test:
+    filesystem:
+      read: ["**"]
+      write: ["tests/**", ".ai/runtime/**"]
+    shell:
+      allow: ["test", "lint", "typecheck", "build"]
+
+  reviewer:
+    filesystem:
+      read: ["**"]
+      write: []
+    shell:
+      allow: ["test", "lint", "typecheck", "build"]
+
+production_access: false

@@ -1,0 +1,8 @@
+# AI Software Development Harness v4.0 - Codex project defaults
+# Loaded only for trusted projects.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[agents]
+enabled = true

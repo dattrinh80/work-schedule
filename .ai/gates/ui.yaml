@@ -1,0 +1,8 @@
+id: G8_UI
+blocking: true
+applicability: ui_change
+checks:
+  - design_tokens_used
+  - required_states_present
+  - responsive_verified
+  - accessibility_verified

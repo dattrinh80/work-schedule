@@ -1,0 +1,14 @@
+id: SIM-001
+type: FEATURE
+title: Simulation feature
+objective: Validate Harness lifecycle plumbing
+scope:
+  include: []
+  exclude: []
+source_of_truth: []
+constraints:
+- no unrelated refactor
+acceptance_criteria:
+- Simulation artifacts validate
+risk: low
+unresolved_questions: []

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Profile",
+  "type": "object",
+  "required": [
+    "project",
+    "stacks",
+    "tooling",
+    "commands"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "single-app",
+            "monorepo",
+            "unknown"
+          ]
+        },
+        "package_manager": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "stacks": {
+      "type": "object"
+    },
+    "datastores": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tooling": {
+      "type": "object"
+    },
+    "commands": {
+      "type": "object"
+    }
+  }
+}

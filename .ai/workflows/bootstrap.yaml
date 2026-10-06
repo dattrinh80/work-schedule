@@ -1,0 +1,17 @@
+name: bootstrap
+version: "3.0.0"
+trigger: NEW_PROJECT
+steps:
+  - read_product_requirements
+  - identify_unresolved_decisions
+  - define_stack
+  - define_architecture
+  - define_database_foundation
+  - define_security_foundation
+  - define_ux_foundation
+  - define_repository_structure
+  - create_project_rules
+  - setup_toolchain
+  - implement_thin_vertical_slice
+  - verify
+  - project_ready

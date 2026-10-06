@@ -1,0 +1,3 @@
+name: integration-check
+implementation: .ai/cli/integration_manager.py
+outputs: [integration_precondition_result, integration_evidence]

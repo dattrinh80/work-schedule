@@ -1,0 +1,11 @@
+task_id: SIM-001
+status: INTAKE
+workflow_version: 4.0.0
+iterations: 0
+changed_files: []
+blocking_issues: []
+gate_history: []
+workflow: feature
+current_node: intake
+node_history: []
+repair_attempts: 0

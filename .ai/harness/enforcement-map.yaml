@@ -1,0 +1,20 @@
+controls:
+  - rule: CORE-002
+    validator: ".ai/cli/harness.py validate evidence"
+    gate: G9_RELEASE
+    evidence: schema_validation_output
+
+  - rule: CORE-003
+    validator: ".ai/cli/harness.py no-progress <TASK_ID>"
+    gate: runtime
+    evidence: state.gate_history
+
+  - rule: CODE-SCOPE-001
+    validator: ".ai/cli/harness.py budget <TASK_ID>"
+    gate: G5_QUALITY
+    evidence: git_status
+
+  - rule: SCHEMA-001
+    validator: ".ai/cli/harness.py validate <kind> <path>"
+    gate: applicable
+    evidence: validator_output

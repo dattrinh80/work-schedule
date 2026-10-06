@@ -1,0 +1,93 @@
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/spreadsheet_warmup.py", line 720, in _warm_feature_flows
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/spreadsheet_warmup.py", line 704, in _warm_collaboration_flows
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/generated/interface/models.py", line 32317, in hydrate_crdt_from_proto
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/remote.py", line 749, in __call__
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/client.py", line 150, in call
+artifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.
+PASS .ai/harness/config.yaml required
+PASS .ai/schemas/task.schema.json required
+PASS .ai/schemas/state.schema.json required
+PASS .ai/schemas/gate-result.schema.json required
+PASS .ai/graphs/feature.yaml required
+PASS .ai/cli/harness_v4.py required
+PASS .ai/cli/orchestrator.py required
+PASS .ai/cli/gate_runner.py required
+PASS .ai/cli/worker_engine.py required
+PASS .ai/cli/git_worker.py required
+PASS .ai/cli/worker_launcher.py required
+PASS compile:audit.py 
+PASS compile:bootstrap_project.py 
+PASS compile:detect_project.py 
+PASS compile:evidence_collector.py 
+PASS compile:gate_runner.py 
+PASS compile:git_integrator.py 
+PASS compile:git_worker.py 
+PASS compile:harness.py 
+PASS compile:harness_v4.py 
+PASS compile:integration_manager.py 
+PASS compile:orchestrator.py 
+PASS compile:runtime_supervisor.py 
+PASS compile:simulate.py 
+PASS compile:worker_engine.py 
+PASS compile:worker_launcher.py 
+PASS json:approval-request.schema.json 
+PASS json:contract-change-request.schema.json 
+PASS json:evidence-manifest.schema.json 
+PASS json:evidence.schema.json 
+PASS json:execution-graph.schema.json 
+PASS json:gate-result.schema.json 
+PASS json:launch.schema.json 
+PASS json:lease.schema.json 
+PASS json:project-profile.schema.json 
+PASS json:state.schema.json 
+PASS json:task.schema.json 
+PASS json:work-item.schema.json 
+PASS json:worktree.schema.json 
+PASS yaml:harness/budgets.yaml 
+PASS yaml:harness/config.yaml 
+PASS yaml:harness/enforcement-map.yaml 
+PASS yaml:harness/git-isolation.yaml 
+PASS yaml:harness/harness.yaml 
+PASS yaml:harness/permissions.yaml 
+PASS yaml:harness/project-commands.yaml 
+PASS yaml:harness/runtime-supervisor.yaml 
+PASS yaml:harness/worker-policy.yaml 
+PASS yaml:gates/architecture.yaml 
+PASS yaml:gates/automation.yaml 
+PASS yaml:gates/contract.yaml 
+PASS yaml:gates/database.yaml 
+PASS yaml:gates/quality.yaml 
+PASS yaml:gates/release.yaml 
+PASS yaml:gates/requirement.yaml 
+PASS yaml:gates/security.yaml 
+PASS yaml:gates/ui.yaml 
+PASS yaml:graphs/bugfix.yaml 
+PASS yaml:graphs/feature.yaml 
+PASS yaml:commands/bootstrap-project.yaml 
+PASS yaml:commands/bootstrap.yaml 
+PASS yaml:commands/bugfix.yaml 
+PASS yaml:commands/collect-evidence.yaml 
+PASS yaml:commands/detect.yaml 
+PASS yaml:commands/feature.yaml 
+PASS yaml:commands/git-integrate.yaml 
+PASS yaml:commands/git-worker-create.yaml 
+PASS yaml:commands/integration-check.yaml 
+PASS yaml:commands/launch-worker.yaml 
+PASS yaml:commands/orchestrator-init.yaml 
+PASS yaml:commands/orchestrator-resume.yaml 
+PASS yaml:commands/orchestrator-step.yaml 
+PASS yaml:commands/resume.yaml 
+PASS yaml:commands/review.yaml 
+PASS yaml:commands/run-gate.yaml 
+PASS yaml:commands/runtime-status.yaml 
+PASS yaml:commands/self-test.yaml 
+PASS yaml:commands/status.yaml 
+PASS yaml:commands/verify.yaml 
+PASS yaml:commands/worker-claim.yaml 
+PASS yaml:commands/worker-create.yaml 
+
+Checks: 81 | Failed: 0

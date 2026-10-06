@@ -1,0 +1,19 @@
+project:
+  type: single-app
+  package_manager: null
+stacks: {}
+datastores: []
+tooling:
+  docker: false
+  compose: false
+  turbo: false
+  nx: false
+commands:
+  install: ''
+  build: ''
+  lint: ''
+  typecheck: ''
+  test: ''
+  contract_test: ''
+  architecture_test: ''
+  ui_test: ''

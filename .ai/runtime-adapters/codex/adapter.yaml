@@ -1,0 +1,26 @@
+name: codex
+version: "1.0.0"
+
+native_instruction_file: AGENTS.md
+native_project_config: .codex/config.toml
+
+verified_capabilities:
+  - hierarchical_project_instructions
+  - project_level_configuration_for_trusted_projects
+  - sandbox_modes
+  - approval_policy
+  - multi_agent_support
+  - workspace_write_mode
+
+harness_mapping:
+  plan:
+    preferred_boundary: read_only_or_no_source_edit
+  implementation:
+    preferred_sandbox: workspace-write
+    preferred_approval: on-request
+  high_risk:
+    action: HUMAN_REVIEW
+
+notes:
+  - Do not use deprecated approval_policy=untrusted.
+  - Core Harness state remains under .ai/runtime.

@@ -1,0 +1,7 @@
+name: bootstrap-project
+implementation: .ai/cli/bootstrap_project.py
+steps:
+  - detect_project
+  - generate_command_proposal
+  - require_human_review_of_detected_commands
+  - continue_bootstrap_workflow

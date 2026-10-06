@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Worker Work Item",
+  "type": "object",
+  "required": [
+    "id",
+    "task_id",
+    "role",
+    "status",
+    "allowed_paths",
+    "objective"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "frontend",
+        "backend",
+        "test",
+        "migration",
+        "ui",
+        "integration"
+      ]
+    },
+    "status": {
+      "enum": [
+        "PENDING",
+        "CLAIMED",
+        "RUNNING",
+        "VERIFYING",
+        "DONE",
+        "FAILED",
+        "BLOCKED",
+        "CANCELLED"
+      ]
+    },
+    "objective": {
+      "type": "string"
+    },
+    "allowed_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contract_versions": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

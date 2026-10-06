@@ -1,0 +1,6 @@
+id: TEST-INVALID
+type: NOT_A_TYPE
+title: Invalid
+objective: Invalid fixture
+acceptance_criteria: []
+risk: low

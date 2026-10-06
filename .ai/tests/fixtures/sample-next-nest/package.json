@@ -1,0 +1,15 @@
+{
+  "name": "sample",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

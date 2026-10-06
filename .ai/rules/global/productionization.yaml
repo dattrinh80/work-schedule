@@ -1,0 +1,17 @@
+rules:
+  - id: CODE-SCOPE-001
+    objective: Prevent uncontrolled broad changes.
+    scope: repository
+    severity: blocking
+    statement: Changed-file count must remain within the configured task budget unless an approved exception exists.
+    validation_method: harness budget
+    violation_action: REPAIR
+    exception_owner: human
+
+  - id: SCHEMA-001
+    objective: Keep runtime artifacts machine-validatable.
+    scope: .ai/runtime
+    severity: blocking
+    statement: Task, state, gate, approval and evidence artifacts must validate against their schemas.
+    validation_method: harness validate
+    violation_action: BLOCK

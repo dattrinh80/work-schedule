@@ -1,0 +1,8 @@
+name: orchestrator-init
+implementation: .ai/cli/orchestrator.py init
+requires:
+  - task_id
+  - workflow
+outputs:
+  - initialized_execution_state
+  - initial_checkpoint

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Runtime Adapter",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "capabilities",
+    "mappings"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mappings": {
+      "type": "object",
+      "properties": {
+        "commands": {
+          "type": "object"
+        },
+        "roles": {
+          "type": "object"
+        },
+        "permissions": {
+          "type": "object"
+        },
+        "evidence": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

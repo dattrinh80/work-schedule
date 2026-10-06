@@ -1,0 +1,6 @@
+name: verify
+workflow: verification
+mode: deterministic_first
+outputs:
+  - verification_report
+  - gate_results

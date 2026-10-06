@@ -1,0 +1,8 @@
+id: G3_DATABASE
+blocking: true
+checks:
+  - schema_valid
+  - migration_forward_verified
+  - rollback_strategy_defined
+  - constraints_valid
+  - backward_compatibility_checked

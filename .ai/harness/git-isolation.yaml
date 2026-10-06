@@ -1,0 +1,10 @@
+git_isolation:
+  enabled: true
+  branch_prefix: ai
+  worktree_root: ../.ai-worktrees
+  integration_branch: main
+  require_clean_main_worktree: true
+  merge_strategy: no-ff
+  auto_delete_worker_branch: false
+  auto_remove_worktree_after_merge: true
+  conflict_policy: BLOCK

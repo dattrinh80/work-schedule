@@ -1,0 +1,8 @@
+id: TEST-001
+type: FEATURE
+title: Test feature
+objective: Validate harness fixture
+acceptance_criteria:
+  - Fixture validates
+risk: low
+unresolved_questions: []

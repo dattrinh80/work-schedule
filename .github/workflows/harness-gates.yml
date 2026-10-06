@@ -1,0 +1,31 @@
+name: Harness Gates
+on:
+  workflow_dispatch:
+    inputs:
+      task_id:
+        description: Harness task ID
+        required: true
+      gate_id:
+        description: Gate ID
+        required: true
+        type: choice
+        options: [G1_REQUIREMENT, G2_ARCHITECTURE, G4_CONTRACT, G5_QUALITY, G7_SECURITY, G8_UI, G9_RELEASE]
+permissions:
+  contents: read
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: pip install -r .ai/cli/requirements.txt
+      - run: python .ai/cli/gate_runner.py "${{ inputs.task_id }}" "${{ inputs.gate_id }}"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: harness-evidence-${{ inputs.task_id }}-${{ inputs.gate_id }}
+          path: |
+            .ai/runtime/tasks/${{ inputs.task_id }}/evidence/
+            .ai/runtime/tasks/${{ inputs.task_id }}/gates/

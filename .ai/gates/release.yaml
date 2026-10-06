@@ -1,0 +1,7 @@
+id: G9_RELEASE
+blocking: true
+checks:
+  - required_evidence_complete
+  - all_blocking_gates_pass
+  - migrations_ready
+  - required_human_approvals_present

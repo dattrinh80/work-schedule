@@ -1,0 +1,7 @@
+name: status
+implementation: .ai/cli/harness.py status
+requires:
+  - task_id
+outputs:
+  - task_state_summary
+  - workspace_change_count

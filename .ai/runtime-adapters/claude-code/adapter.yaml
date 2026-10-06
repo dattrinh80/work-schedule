@@ -1,0 +1,30 @@
+name: claude-code
+version: "1.0.0"
+
+native_instruction_file: CLAUDE.md
+native_project_settings: .claude/settings.json
+
+verified_capabilities:
+  - project_memory_via_CLAUDE_md
+  - project_settings
+  - allowed_and_disallowed_tools
+  - permission_modes
+  - continue_and_resume
+  - noninteractive_json_output
+  - bounded_max_turns
+  - hooks_for_runtime_permission_control
+
+harness_mapping:
+  planning:
+    permission_mode: plan
+  implementation:
+    permission_mode: default
+  unattended:
+    require_external_sandbox_and_harness_controls: true
+  high_risk:
+    action: HUMAN_REVIEW
+
+notes:
+  - Do not use dangerously-skip-permissions as the normal project mode.
+  - Use --max-turns for bounded noninteractive automation.
+  - Harness state remains under .ai/runtime.

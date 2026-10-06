@@ -1,0 +1,3 @@
+name: worker-claim
+implementation: .ai/cli/worker_engine.py claim
+outputs: [active_path_lease]

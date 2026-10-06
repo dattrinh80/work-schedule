@@ -1,0 +1,4 @@
+name: self-test
+implementation: .ai/cli/harness.py self-test
+outputs:
+  - harness_validation_result

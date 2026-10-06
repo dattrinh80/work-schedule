@@ -1,0 +1,6 @@
+name: review
+workflow: review
+mode: read_only
+outputs:
+  - review_report
+  - gate_recommendations

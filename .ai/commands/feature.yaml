@@ -1,0 +1,16 @@
+name: feature
+workflow: feature
+requires:
+  - task_contract
+gates:
+  - requirement
+  - architecture
+  - contract
+  - quality
+  - security
+  - ui_if_applicable
+outputs:
+  - implementation_plan
+  - code_changes
+  - tests
+  - evidence_package

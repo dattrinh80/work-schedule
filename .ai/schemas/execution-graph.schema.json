@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Execution Graph",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "entry",
+    "nodes"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "entry": {
+      "type": "string"
+    },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "action",
+              "gate",
+              "parallel",
+              "approval",
+              "terminal"
+            ]
+          },
+          "next": {
+            "type": "string"
+          },
+          "gate": {
+            "type": "string"
+          },
+          "branches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "join": {
+            "type": "string"
+          },
+          "on": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "state": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

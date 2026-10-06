@@ -1,0 +1,6 @@
+name: orchestrator-resume
+implementation: .ai/cli/orchestrator.py resume
+requires:
+  - task_id
+outputs:
+  - resume_context

@@ -1,0 +1,28 @@
+worker_policy:
+  default_write_conflict: BLOCK
+  require_lease_before_write: true
+  allow_overlapping_leases: false
+  require_worker_evidence: true
+  integration_requires_all_required_workers_done: true
+
+roles:
+  frontend:
+    default_paths:
+      - frontend/**
+      - src/frontend/**
+      - packages/ui/**
+  backend:
+    default_paths:
+      - backend/**
+      - src/backend/**
+      - packages/domain/**
+  test:
+    default_paths:
+      - tests/**
+  migration:
+    default_paths:
+      - migrations/**
+      - database/**
+  integration:
+    default_paths:
+      - "**"

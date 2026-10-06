@@ -1,0 +1,16 @@
+name: ui-refinement
+version: "3.0.0"
+trigger: UI_REFINEMENT
+steps:
+  - capture_current_ui
+  - ux_audit
+  - visual_spec
+  - implement
+  - render
+  - compare
+  - accessibility_check
+  - responsive_check
+  - visual_regression
+  - ui_gate
+  - evidence_package
+  - done

@@ -1,0 +1,6 @@
+name: orchestrator-step
+implementation: .ai/cli/orchestrator.py step
+requires:
+  - task_id
+outputs:
+  - next_node_or_wait_state

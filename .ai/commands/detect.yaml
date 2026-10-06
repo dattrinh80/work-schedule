@@ -1,0 +1,7 @@
+name: detect
+implementation: .ai/cli/detect_project.py
+mode: read_only
+outputs:
+  - .ai/runtime/bootstrap/project-profile.yaml
+  - .ai/runtime/bootstrap/detection-report.md
+  - .ai/harness/project-commands.generated.yaml

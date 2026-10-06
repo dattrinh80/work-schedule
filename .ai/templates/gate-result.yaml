@@ -1,0 +1,7 @@
+gate_id: G1_REQUIREMENT
+status: PASS
+severity: blocking
+failed_rule_ids: []
+evidence: []
+repair_instruction: null
+owner: null

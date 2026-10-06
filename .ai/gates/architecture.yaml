@@ -1,0 +1,8 @@
+id: G2_ARCHITECTURE
+blocking: true
+checks:
+  - module_boundaries_respected
+  - dependency_direction_valid
+  - data_ownership_respected
+  - public_contract_change_approved
+  - no_unnecessary_architecture_change

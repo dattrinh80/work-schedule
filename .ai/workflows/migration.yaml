@@ -1,0 +1,16 @@
+name: migration
+version: "3.0.0"
+trigger: MIGRATION
+steps:
+  - change_proposal
+  - data_impact_analysis
+  - backward_compatibility_check
+  - migration_plan
+  - database_gate
+  - implement
+  - forward_test
+  - rollback_test
+  - application_compatibility_test
+  - human_approval_if_risky
+  - evidence_package
+  - done

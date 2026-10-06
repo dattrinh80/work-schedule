@@ -1,0 +1,10 @@
+name: bugfix
+workflow: bugfix
+requires:
+  - defect_description
+outputs:
+  - reproduction
+  - root_cause
+  - minimal_fix
+  - regression_test
+  - evidence_package

@@ -1,0 +1,4 @@
+name: git-integrate
+implementation: .ai/cli/git_integrator.py
+requires: [task_id]
+outputs: [merge_evidence, integration_result]

@@ -1,0 +1,25 @@
+automated_gates:
+  G1_REQUIREMENT:
+    mode: mixed
+    deterministic: [task_schema, unresolved_questions_empty]
+    semantic: [requirement_clarity]
+  G2_ARCHITECTURE:
+    mode: mixed
+    deterministic: [architecture_test_if_configured, change_budget]
+    semantic: [architecture_review]
+  G4_CONTRACT:
+    mode: deterministic_preferred
+    deterministic: [contract_test_if_configured]
+  G5_QUALITY:
+    mode: deterministic
+    deterministic: [build, lint, typecheck, test, change_budget, no_progress]
+  G7_SECURITY:
+    mode: deterministic_preferred
+    deterministic: [security_test_if_configured]
+  G8_UI:
+    mode: mixed
+    deterministic: [ui_test_if_configured]
+    semantic: [ui_review]
+  G9_RELEASE:
+    mode: deterministic
+    deterministic: [evidence_complete, blocking_gates_pass, approvals_present]

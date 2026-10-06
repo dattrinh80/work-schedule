@@ -1,0 +1,36 @@
+name: Harness CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  harness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install Harness CLI dependencies
+        run: pip install -r .ai/cli/requirements.txt
+
+      - name: Harness self-test
+        run: python .ai/cli/harness.py self-test
+
+      - name: Validate runtime task artifacts
+        shell: bash
+        run: |
+          shopt -s nullglob
+          for f in .ai/runtime/tasks/*/task.yaml; do
+            python .ai/cli/harness.py validate task "$f"
+          done
+          for f in .ai/runtime/tasks/*/state.yaml; do
+            python .ai/cli/harness.py validate state "$f"
+          done

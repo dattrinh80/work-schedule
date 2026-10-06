@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gate Result",
+  "type": "object",
+  "required": [
+    "gate_id",
+    "status",
+    "evidence"
+  ],
+  "properties": {
+    "gate_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "REPAIR",
+        "HUMAN_REVIEW",
+        "BLOCK",
+        "RETRY_LATER",
+        "CANCELLED"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "blocking",
+        "warning",
+        "informational"
+      ]
+    },
+    "failed_rule_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "repair_instruction": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

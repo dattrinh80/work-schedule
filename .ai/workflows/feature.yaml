@@ -1,0 +1,32 @@
+name: feature
+version: "3.0.0"
+trigger: FEATURE
+objective: Deliver one verified vertical slice.
+
+steps:
+  - intake
+  - requirement_gate
+  - compile_context
+  - repository_analysis
+  - impact_analysis
+  - implementation_plan
+  - architecture_gate
+  - contract_preparation
+  - contract_gate
+  - parallel:
+      - frontend_implementation
+      - backend_implementation
+      - test_preparation
+  - integration
+  - verification
+  - security_gate
+  - quality_gate
+  - ui_gate_if_applicable
+  - diff_review
+  - evidence_package
+  - done
+
+repair:
+  max_attempts: 5
+  no_progress_limit: 2
+  on_exhaustion: HUMAN_REVIEW

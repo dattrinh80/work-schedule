@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Worker Path Lease",
+  "type": "object",
+  "required": [
+    "lease_id",
+    "task_id",
+    "worker_id",
+    "paths",
+    "status"
+  ],
+  "properties": {
+    "lease_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "worker_id": {
+      "type": "string"
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "ACTIVE",
+        "RELEASED",
+        "EXPIRED",
+        "REVOKED"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "released_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

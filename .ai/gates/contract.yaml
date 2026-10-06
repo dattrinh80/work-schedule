@@ -1,0 +1,8 @@
+id: G4_CONTRACT
+blocking: true
+checks:
+  - request_schema_valid
+  - response_schema_valid
+  - errors_defined
+  - permissions_defined
+  - compatibility_checked

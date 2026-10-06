@@ -1,0 +1,10 @@
+name: resume
+workflow: resume
+requires:
+  - task_id
+steps:
+  - load_checkpoint
+  - validate_workspace
+  - recompile_context
+  - rerun_stale_gates
+  - continue

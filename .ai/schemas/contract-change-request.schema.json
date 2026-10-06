@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Contract Change Request",
+  "type": "object",
+  "required": [
+    "id",
+    "task_id",
+    "contract",
+    "reason",
+    "proposed_change",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "contract": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "proposed_change": {
+      "type": "string"
+    },
+    "impact": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ]
+    }
+  }
+}

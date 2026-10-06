@@ -1,0 +1,4 @@
+name: collect-evidence
+implementation: .ai/cli/evidence_collector.py
+requires: [task_id]
+outputs: [evidence_manifest]

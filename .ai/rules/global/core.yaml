@@ -1,0 +1,18 @@
+rules:
+  - id: CORE-001
+    statement: Workers cannot declare a task DONE.
+    control: constraint
+    severity: blocking
+    action: BLOCK
+
+  - id: CORE-002
+    statement: Required evidence must exist before completion.
+    control: enforcement
+    severity: blocking
+    action: BLOCK
+
+  - id: CORE-003
+    statement: Repair loops are bounded.
+    control: enforcement
+    severity: blocking
+    action: HUMAN_REVIEW

@@ -1,0 +1,18 @@
+id: PROJECT-001
+type: FEATURE
+title: Replace me
+objective: Replace me
+
+scope:
+  include: []
+  exclude: []
+
+source_of_truth: []
+constraints:
+  - no unrelated refactor
+
+acceptance_criteria:
+  - Replace me
+
+risk: medium
+unresolved_questions: []

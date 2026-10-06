@@ -1,0 +1,24 @@
+name: generic-agent
+version: "1.0.0"
+
+capabilities:
+  - prompt_instructions
+  - repository_read
+  - scoped_file_write
+  - shell_execution
+  - persistent_artifacts
+
+mappings:
+  commands:
+    bootstrap: BOOTSTRAP_PROMPT.md
+    feature: .ai/runtime-adapters/generic/prompts/feature.md
+    bugfix: .ai/runtime-adapters/generic/prompts/bugfix.md
+    verify: .ai/runtime-adapters/generic/prompts/verify.md
+    review: .ai/runtime-adapters/generic/prompts/review.md
+
+  roles:
+    planner: .ai/agents/planner.md
+    frontend: .ai/agents/frontend-worker.md
+    backend: .ai/agents/backend-worker.md
+    test: .ai/agents/test-worker.md
+    reviewer: .ai/agents/reviewer.md

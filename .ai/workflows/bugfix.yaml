@@ -1,0 +1,16 @@
+name: bugfix
+version: "3.0.0"
+trigger: BUGFIX
+steps:
+  - intake
+  - reproduce
+  - root_cause
+  - impact_analysis
+  - minimal_fix
+  - regression_test
+  - verification
+  - diff_review
+  - evidence_package
+  - done
+rules:
+  prohibit_unrelated_refactor: true

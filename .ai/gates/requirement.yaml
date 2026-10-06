@@ -1,0 +1,8 @@
+id: G1_REQUIREMENT
+blocking: true
+checks:
+  - user_story_defined
+  - acceptance_criteria_defined
+  - permission_rules_defined
+  - business_rules_defined
+  - no_blocking_ambiguity

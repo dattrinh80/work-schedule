@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task State",
+  "type": "object",
+  "required": [
+    "task_id",
+    "status",
+    "workflow_version",
+    "iterations",
+    "gate_history"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "CREATED",
+        "INTAKE",
+        "CONTEXT_READY",
+        "PLANNED",
+        "READY_FOR_IMPLEMENTATION",
+        "IMPLEMENTING",
+        "INTEGRATING",
+        "VERIFYING",
+        "REVIEWING",
+        "REPAIRING",
+        "BLOCKED",
+        "WAITING_APPROVAL",
+        "DONE",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "workflow_version": {
+      "type": "string"
+    },
+    "iterations": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocking_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gate_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

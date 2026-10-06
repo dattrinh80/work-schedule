@@ -1,0 +1,4 @@
+name: runtime-status
+implementation: .ai/cli/runtime_supervisor.py
+requires: [task_id]
+outputs: [worker_runtime_status]

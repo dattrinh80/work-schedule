@@ -1,0 +1,4 @@
+name: run-gate
+implementation: .ai/cli/gate_runner.py
+requires: [task_id, gate_id]
+outputs: [normalized_gate_result, evidence_logs]

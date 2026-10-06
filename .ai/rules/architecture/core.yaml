@@ -1,0 +1,12 @@
+rules:
+  - id: ARCH-001
+    statement: Respect module boundaries and dependency direction.
+    control: enforcement
+    severity: blocking
+    action: BLOCK
+
+  - id: ARCH-002
+    statement: Public contract changes require explicit approval.
+    control: constraint
+    severity: blocking
+    action: HUMAN_REVIEW

@@ -1,0 +1,16 @@
+task_id: PROJECT-001
+impact:
+  frontend: []
+  backend: []
+  database: []
+
+files_to_modify: []
+files_to_create: []
+api_changes: []
+database_changes: []
+
+dependencies:
+  add: []
+
+tests: []
+risks: []

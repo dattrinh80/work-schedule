@@ -1,0 +1,30 @@
+version: "4.0.0"
+
+execution:
+  default_mode: controlled-autonomous
+  parallelism:
+    enabled: true
+    max_workers: 3
+  repair:
+    max_attempts: 5
+    no_progress_limit: 2
+  checkpoint:
+    enabled: true
+    after_blocking_gate: true
+
+risk:
+  default: medium
+
+human_approval:
+  required_for:
+    - production_deploy
+    - destructive_migration
+    - public_api_breaking_change
+    - auth_architecture_change
+    - secrets_change
+    - permissions_change
+    - sensitive_data_transfer
+
+completion:
+  require_evidence: true
+  require_all_blocking_gates_passed: true

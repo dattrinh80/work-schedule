@@ -1,0 +1,3 @@
+name: worker-create
+implementation: .ai/cli/worker_engine.py create
+outputs: [work_item]

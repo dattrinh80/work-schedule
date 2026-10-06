@@ -1,0 +1,9 @@
+task_id: TEST-001
+changed_files:
+  - src/example.ts
+verification:
+  build: pass
+artifacts:
+  - build.log
+approvals: []
+residual_risks: []
