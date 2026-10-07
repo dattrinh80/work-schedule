@@ -60,4 +60,14 @@ test('WMS Web UI Deterministic Test Suite', async (t) => {
     scopeStorage.clear();
     assert.strictEqual(scopeStorage.get().facilityId, 'ALL');
   });
+
+  await t.test('LoginForm: provides accessible inputs and preset demo accounts', async () => {
+    const { LoginForm, DEMO_ACCOUNTS } = await import('../src/components/login-form.js');
+    assert.strictEqual(typeof LoginForm, 'function');
+    assert.strictEqual(DEMO_ACCOUNTS.length, 4);
+    assert.ok(DEMO_ACCOUNTS.some((a) => a.email === 'admin@wms.local' && a.role === 'Super Admin'));
+    assert.ok(DEMO_ACCOUNTS.some((a) => a.email === 'manager.central@wms.local' && a.role === 'Central Manager'));
+    assert.ok(DEMO_ACCOUNTS.some((a) => a.email === 'manager.west@wms.local' && a.role === 'West Manager'));
+    assert.ok(DEMO_ACCOUNTS.some((a) => a.email === 'teacher.sarah@wms.local' && a.role === 'Teacher Sarah'));
+  });
 });
