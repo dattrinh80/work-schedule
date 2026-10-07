@@ -12,9 +12,16 @@ import {
   User,
 } from '@wms/shared';
 
-const API_BASE = typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_API_URL
-  ? process.env.NEXT_PUBLIC_API_URL
-  : 'http://localhost:4000/api/v1';
+function getApiBase(): string {
+  if (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    const host = window.location.hostname || 'localhost';
+    return `http://${host}:4000/api/v1`;
+  }
+  return 'http://localhost:4000/api/v1';
+}
 
 let memoryToken: string | null = null;
 let memoryScope: ActiveScope = { facilityId: 'ALL' };
@@ -79,7 +86,8 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const url = `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`;
+  const base = getApiBase();
+  const url = `${base}${path.startsWith('/') ? path : `/${path}`}`;
   const response = await fetch(url, {
     ...options,
     headers,
