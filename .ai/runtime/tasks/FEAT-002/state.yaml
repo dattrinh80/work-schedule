@@ -1,0 +1,11 @@
+task_id: FEAT-002
+status: INTAKE
+workflow_version: 4.1.0
+iterations: 0
+changed_files: []
+blocking_issues: []
+gate_history: []
+workflow: feature
+current_node: intake
+node_history: []
+repair_attempts: 0

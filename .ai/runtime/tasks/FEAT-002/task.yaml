@@ -1,0 +1,38 @@
+id: FEAT-002
+type: FEATURE
+title: Authentication, Session Lifecycle, and Hierarchical Scope Switching
+objective: Implement dedicated interactive login/logout flows, session persistence with /auth/me verification, multi-account demo seeds, and role-aware facility/department scope filtering.
+scope:
+  include:
+    - packages/shared/src/contracts/
+    - apps/api/src/prisma/prisma.service.ts
+    - apps/api/src/tasks/tasks.controller.ts
+    - apps/api/src/tasks/tasks.service.ts
+    - apps/api/test/api.test.ts
+    - apps/web/src/components/login-form.tsx
+    - apps/web/src/components/navbar.tsx
+    - apps/web/src/lib/api.ts
+    - apps/web/src/app/page.tsx
+    - apps/web/test/ui.test.ts
+    - scripts/contract-check.mjs
+  exclude:
+    - third-party OAuth providers
+    - unrelated modules
+source_of_truth:
+  - docs/product/prd-master.md
+  - docs/adr/ADR-002-authentication-and-hierarchical-rbac.md
+  - docs/superpowers/specs/2026-10-07-auth-scope-switching-design.md
+constraints:
+  - no unrelated refactor
+  - strict TypeScript compilation
+  - all deterministic checks pass
+acceptance_criteria:
+  - Dedicated LoginForm component with input validation, error banner, and quick demo logins
+  - Complete Logout workflow clearing tokens and local storage session
+  - Header Scope Switcher allows Super Admin to toggle between all facilities and individual campuses
+  - Role-based scoping locks localized users (Facility Managers, Teachers) to their assigned branch
+  - Active scope automatically filters displayed tasks and preselects facility in task creation modal
+  - Backend seeds support multiple roles (Admin, Central Manager, West Manager, Teacher) with valid hashes
+  - Full deterministic checks and Harness gates pass
+risk: medium
+unresolved_questions: []
