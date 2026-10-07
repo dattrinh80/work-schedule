@@ -1,4 +1,5 @@
 import {
+  ActiveScope,
   CreateTaskDto,
   Facility,
   LoginDto,
@@ -16,6 +17,7 @@ const API_BASE = typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_API_
   : 'http://localhost:4000/api/v1';
 
 let memoryToken: string | null = null;
+let memoryScope: ActiveScope = { facilityId: 'ALL' };
 
 export const tokenStorage = {
   get(): string | null {
@@ -35,6 +37,34 @@ export const tokenStorage = {
       window.localStorage.removeItem('wms_token');
     }
     memoryToken = null;
+  },
+};
+
+export const scopeStorage = {
+  get(): ActiveScope {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const saved = window.localStorage.getItem('wms_scope');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          // fallback
+        }
+      }
+    }
+    return memoryScope;
+  },
+  set(scope: ActiveScope) {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem('wms_scope', JSON.stringify(scope));
+    }
+    memoryScope = scope;
+  },
+  clear() {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.removeItem('wms_scope');
+    }
+    memoryScope = { facilityId: 'ALL' };
   },
 };
 

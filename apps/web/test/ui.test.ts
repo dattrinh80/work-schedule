@@ -48,4 +48,16 @@ test('WMS Web UI Deterministic Test Suite', async (t) => {
     tokenStorage.clear();
     assert.strictEqual(tokenStorage.get(), null);
   });
+
+  await t.test('Scope Storage: manages active scope persistence', async () => {
+    const { scopeStorage } = await import('../src/lib/api.js');
+    assert.ok(scopeStorage);
+    scopeStorage.set({ facilityId: 'fac-002', facilityName: 'West Campus' });
+    const current = scopeStorage.get();
+    assert.strictEqual(current.facilityId, 'fac-002');
+    assert.strictEqual(current.facilityName, 'West Campus');
+
+    scopeStorage.clear();
+    assert.strictEqual(scopeStorage.get().facilityId, 'ALL');
+  });
 });
