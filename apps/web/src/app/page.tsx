@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { CreateTaskDto, Facility, Role, Task, TaskStatus, User } from '@wms/shared';
+import { ActiveScope, CreateTaskDto, Facility, Role, Task, TaskStatus, User } from '@wms/shared';
 import { Navbar } from '../components/navbar.js';
 import { TaskList } from '../components/task-list.js';
 import { CreateTaskModal } from '../components/create-task-modal.js';
 import { TaskDetailModal } from '../components/task-detail-modal.js';
-import { apiClient, tokenStorage } from '../lib/api.js';
+import { LoginForm } from '../components/login-form.js';
+import { apiClient, tokenStorage, scopeStorage } from '../lib/api.js';
 
 export default function WmsApp() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -16,88 +17,124 @@ export default function WmsApp() {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [activeScope, setActiveScope] = useState<ActiveScope>({ facilityId: 'ALL' });
 
-  // Authenticate user with demo credentials
-  const authenticate = useCallback(async (email: string) => {
+  const loadDataForScope = useCallback(
+    async (scope: ActiveScope, user: User) => {
+      try {
+        setLoading(true);
+        const [facRes, usrRes] = await Promise.all([
+          apiClient.getFacilities(),
+          apiClient.getUsers(),
+        ]);
+        setFacilities(facRes.facilities);
+        setUsers(usrRes.users);
+
+        // Determine effective facility filter based on user role and active scope
+        let effectiveFacilityId: string | undefined = undefined;
+        if (
+          user.role === Role.SUPER_ADMIN ||
+          user.role === Role.ADMIN
+        ) {
+          if (scope.facilityId !== 'ALL') {
+            effectiveFacilityId = scope.facilityId;
+          }
+        } else if (user.facilityId) {
+          effectiveFacilityId = user.facilityId;
+        }
+
+        const taskRes = await apiClient.getTasks(
+          effectiveFacilityId ? { facilityId: effectiveFacilityId } : {},
+        );
+        setTasks(taskRes.tasks);
+      } catch (err: any) {
+        setErrorMsg(err.message || 'Failed to fetch live data from server');
+      } finally {
+        setLoading(false);
+      }
+    },
+    [],
+  );
+
+  // Authenticate user with credentials
+  const handleLogin = async (email: string, password: string = 'Password123!') => {
     try {
       setLoading(true);
       setErrorMsg(null);
-      const res = await apiClient.login({
-        email,
-        password: 'Password123!',
-      });
+      const res = await apiClient.login({ email, password });
       setCurrentUser(res.user);
-      await loadInitialData();
+
+      // Determine initial active scope
+      let initialScope: ActiveScope = { facilityId: 'ALL' };
+      if (res.user.role !== Role.SUPER_ADMIN && res.user.role !== Role.ADMIN) {
+        initialScope = {
+          facilityId: res.user.facilityId || 'fac-001',
+          facilityName: 'Assigned Campus',
+        };
+      } else {
+        const saved = scopeStorage.get();
+        if (saved) initialScope = saved;
+      }
+
+      setActiveScope(initialScope);
+      scopeStorage.set(initialScope);
+      await loadDataForScope(initialScope, res.user);
     } catch (err: any) {
-      console.warn('API login failed, using fallback authenticated profile:', err.message);
-      // Fallback offline mock profile if backend is not actively running during static rendering
-      const fallbackUser: User = {
-        id: email.includes('admin') ? 'usr-admin-01' : 'usr-staff-01',
-        email,
-        fullName: email.includes('admin') ? 'System Administrator' : 'Sarah Jenkins',
-        role: email.includes('admin') ? Role.SUPER_ADMIN : Role.TEACHER,
-        facilityId: 'fac-001',
-        isActive: true,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      setCurrentUser(fallbackUser);
-      setFacilities([
-        {
-          id: 'fac-001',
-          name: 'Central Campus',
-          code: 'CAMPUS-01',
-          isActive: true,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
-      ]);
-      setUsers([fallbackUser]);
-      setTasks([
-        {
-          id: 'task-demo-01',
-          title: 'Review IELTS Academic Class Roster',
-          description: 'Verify attendance prerequisites and prepare course materials.',
-          status: TaskStatus.IN_PROGRESS,
-          priority: 2 as any,
-          facilityId: 'fac-001',
-          creatorId: 'usr-admin-01',
-          assignmentTargetType: 'USER' as any,
-          assigneeUserId: 'usr-staff-01',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          facility: { id: 'fac-001', name: 'Central Campus', code: 'CAMPUS-01' },
-          assigneeUser: { id: 'usr-staff-01', fullName: 'Sarah Jenkins', email: 'teacher.sarah@wms.local' },
-        },
-      ]);
+      setErrorMsg(err.message || 'Login failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }
-  }, []);
-
-  const loadInitialData = async () => {
-    try {
-      const [facRes, usrRes, taskRes] = await Promise.all([
-        apiClient.getFacilities(),
-        apiClient.getUsers(),
-        apiClient.getTasks(),
-      ]);
-      setFacilities(facRes.facilities);
-      setUsers(usrRes.users);
-      setTasks(taskRes.tasks);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Failed to fetch live data from server');
-    }
   };
 
+  // Logout handler
+  const handleLogout = () => {
+    tokenStorage.clear();
+    scopeStorage.clear();
+    setCurrentUser(null);
+    setTasks([]);
+    setSelectedTask(null);
+    setIsCreateModalOpen(false);
+    setIsDetailModalOpen(false);
+    setErrorMsg(null);
+  };
+
+  // Scope change handler (admins switching between facilities)
+  const handleScopeChange = async (newScope: ActiveScope) => {
+    if (!currentUser) return;
+    setActiveScope(newScope);
+    scopeStorage.set(newScope);
+    await loadDataForScope(newScope, currentUser);
+  };
+
+  // Initial session hydration
   useEffect(() => {
-    authenticate('admin@wms.local');
-  }, [authenticate]);
+    const hydrateSession = async () => {
+      const existingToken = tokenStorage.get();
+      if (!existingToken) {
+        return;
+      }
+      try {
+        setLoading(true);
+        const me = await apiClient.getMe();
+        setCurrentUser(me);
+        const savedScope = scopeStorage.get();
+        setActiveScope(savedScope);
+        await loadDataForScope(savedScope, me);
+      } catch {
+        // Token invalid or expired
+        tokenStorage.clear();
+        setCurrentUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    hydrateSession();
+  }, [loadDataForScope]);
 
   const handleStatusChange = async (taskId: string, newStatus: TaskStatus) => {
-    // Optimistic UI update
     setTasks((prev) =>
       prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t)),
     );
@@ -118,23 +155,7 @@ export default function WmsApp() {
       const created = await apiClient.createTask(dto);
       setTasks((prev) => [created, ...prev]);
     } catch (err: any) {
-      // Optimistic fallback
-      const fallbackTask: Task = {
-        id: `task-${Date.now()}`,
-        title: dto.title,
-        description: dto.description || null,
-        status: dto.assigneeUserId ? TaskStatus.ASSIGNED : TaskStatus.NEW,
-        priority: dto.priority || (1 as any),
-        facilityId: dto.facilityId,
-        creatorId: currentUser?.id || 'usr-admin-01',
-        assignmentTargetType: dto.assignmentTargetType || ('USER' as any),
-        assigneeUserId: dto.assigneeUserId || null,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        facility: facilities.find((f) => f.id === dto.facilityId) || null,
-        assigneeUser: users.find((u) => u.id === dto.assigneeUserId) || null,
-      };
-      setTasks((prev) => [fallbackTask, ...prev]);
+      console.warn('Failed to create task on backend:', err.message);
     } finally {
       setLoading(false);
     }
@@ -159,47 +180,93 @@ export default function WmsApp() {
     setIsDetailModalOpen(true);
   };
 
+  // Unauthenticated view: Render dedicated Login screen
+  if (!currentUser) {
+    return (
+      <LoginForm
+        onLogin={handleLogin}
+        loading={loading}
+        error={errorMsg}
+      />
+    );
+  }
+
+  // Active facility display name
+  const activeFacilityObj = facilities.find((f) => f.id === activeScope.facilityId);
+  const activeFacilityName =
+    activeScope.facilityId === 'ALL'
+      ? 'All Facilities'
+      : activeFacilityObj
+      ? `${activeFacilityObj.name} (${activeFacilityObj.code})`
+      : 'Assigned Campus';
+
+  const defaultFacilityIdForCreation =
+    activeScope.facilityId !== 'ALL'
+      ? activeScope.facilityId
+      : currentUser.facilityId || facilities[0]?.id || 'fac-001';
+
   return (
     <div className="min-h-screen bg-zinc-50 flex flex-col font-sans">
       <Navbar
         currentUser={currentUser}
-        facilityName={facilities[0]?.name ? `${facilities[0].name} (${facilities[0].code})` : 'Central Campus'}
-        onLogout={() => {
-          tokenStorage.clear();
-          setCurrentUser(null);
-        }}
+        facilityName={activeFacilityName}
+        facilities={facilities}
+        activeScope={activeScope}
+        onScopeChange={handleScopeChange}
+        onLogout={handleLogout}
       />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 space-y-6">
-        {/* Account Switcher Bar for Role Evaluation */}
+        {/* Quick Demo Switcher helper for review/testing */}
         <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center space-x-2 text-indigo-900 font-medium">
-            <span>Role Context Switcher:</span>
+            <span>Signed in as:</span>
+            <strong className="text-zinc-900">{currentUser.fullName}</strong>
             <span className="bg-indigo-200 text-indigo-800 px-2 py-0.5 rounded font-bold">
-              {currentUser?.role || 'Guest'}
+              {currentUser.role}
             </span>
           </div>
           <div className="flex items-center space-x-2">
-            <span className="text-zinc-500">Switch user:</span>
+            <span className="text-zinc-500">Quick Switch:</span>
             <button
-              onClick={() => authenticate('admin@wms.local')}
+              onClick={() => handleLogin('admin@wms.local')}
               className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                currentUser?.email === 'admin@wms.local'
+                currentUser.email === 'admin@wms.local'
                   ? 'bg-indigo-600 text-white'
                   : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
               }`}
             >
-              Admin (Global Scope)
+              Admin (Global)
             </button>
             <button
-              onClick={() => authenticate('teacher.sarah@wms.local')}
+              onClick={() => handleLogin('manager.central@wms.local')}
               className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                currentUser?.email === 'teacher.sarah@wms.local'
+                currentUser.email === 'manager.central@wms.local'
                   ? 'bg-indigo-600 text-white'
                   : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
               }`}
             >
-              Teacher Sarah (Branch Scope)
+              Central Mgr
+            </button>
+            <button
+              onClick={() => handleLogin('manager.west@wms.local')}
+              className={`px-2.5 py-1 rounded font-semibold transition-colors ${
+                currentUser.email === 'manager.west@wms.local'
+                  ? 'bg-indigo-600 text-white'
+                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
+              }`}
+            >
+              West Mgr
+            </button>
+            <button
+              onClick={() => handleLogin('teacher.sarah@wms.local')}
+              className={`px-2.5 py-1 rounded font-semibold transition-colors ${
+                currentUser.email === 'teacher.sarah@wms.local'
+                  ? 'bg-indigo-600 text-white'
+                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
+              }`}
+            >
+              Teacher Sarah
             </button>
           </div>
         </div>
@@ -241,7 +308,7 @@ export default function WmsApp() {
           onSubmit={handleCreateTask}
           facilities={facilities}
           users={users}
-          defaultFacilityId={facilities[0]?.id || 'fac-001'}
+          defaultFacilityId={defaultFacilityIdForCreation}
         />
 
         <TaskDetailModal
