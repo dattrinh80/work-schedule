@@ -8,7 +8,7 @@ Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/remote.py", line 749, in __call__
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/client.py", line 150, in call
 artifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.
-$ /mnt/data/AI_Software_Development_Harness_v4.0/.ai/cli/harness.py feature SIM-001
+$ /mnt/data/AI_Software_Development_Harness_v4.1/.ai/cli/harness.py feature SIM-001
 Spreadsheet runtime warmup failed during python startup
 Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
@@ -23,7 +23,7 @@ Initialized feature task: SIM-001
 - .ai/runtime/tasks/SIM-001/task.yaml
 - .ai/runtime/tasks/SIM-001/state.yaml
 
-$ /mnt/data/AI_Software_Development_Harness_v4.0/.ai/cli/harness.py validate task /mnt/data/AI_Software_Development_Harness_v4.0/.ai/runtime/tasks/SIM-001/task.yaml
+$ /mnt/data/AI_Software_Development_Harness_v4.1/.ai/cli/harness.py validate task /mnt/data/AI_Software_Development_Harness_v4.1/.ai/runtime/tasks/SIM-001/task.yaml
 Spreadsheet runtime warmup failed during python startup
 Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
@@ -34,9 +34,9 @@ Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/remote.py", line 749, in __call__
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/client.py", line 150, in call
 artifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.
-PASS task: /mnt/data/AI_Software_Development_Harness_v4.0/.ai/runtime/tasks/SIM-001/task.yaml
+PASS task: /mnt/data/AI_Software_Development_Harness_v4.1/.ai/runtime/tasks/SIM-001/task.yaml
 
-$ /mnt/data/AI_Software_Development_Harness_v4.0/.ai/cli/orchestrator.py init SIM-001 feature
+$ /mnt/data/AI_Software_Development_Harness_v4.1/.ai/cli/orchestrator.py init SIM-001 feature
 Spreadsheet runtime warmup failed during python startup
 Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
@@ -49,7 +49,7 @@ Traceback (most recent call last):
 artifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.
 Initialized SIM-001 on workflow feature at node intake
 
-$ /mnt/data/AI_Software_Development_Harness_v4.0/.ai/cli/orchestrator.py step SIM-001
+$ /mnt/data/AI_Software_Development_Harness_v4.1/.ai/cli/orchestrator.py step SIM-001
 Spreadsheet runtime warmup failed during python startup
 Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
@@ -63,7 +63,7 @@ artifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty col
 Current node: intake (action)
 intake -> requirement_gate
 
-$ /mnt/data/AI_Software_Development_Harness_v4.0/.ai/cli/gate_runner.py SIM-001 G1_REQUIREMENT
+$ /mnt/data/AI_Software_Development_Harness_v4.1/.ai/cli/gate_runner.py SIM-001 G1_REQUIREMENT
 Spreadsheet runtime warmup failed during python startup
 Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
@@ -85,7 +85,7 @@ owner: null
 timestamp: '2026-10-06T11:43:19.308599+00:00'
 
 
-$ /mnt/data/AI_Software_Development_Harness_v4.0/.ai/cli/orchestrator.py step SIM-001
+$ /mnt/data/AI_Software_Development_Harness_v4.1/.ai/cli/orchestrator.py step SIM-001
 Spreadsheet runtime warmup failed during python startup
 Traceback (most recent call last):
   File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup

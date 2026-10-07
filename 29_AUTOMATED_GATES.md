@@ -1,4 +1,4 @@
-# Automated Gate Execution - v4.0
+# Automated Gate Execution - v4.1
 
 Deterministic gate decisions should be made by executable checks, not model confidence.
 

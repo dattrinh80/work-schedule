@@ -1,8 +1,8 @@
-# AI Software Development Harness v4.0 - Production Candidate
+# AI Software Development Harness v4.1 - Production Candidate
 
 ## Purpose
 
-v4.0 consolidates the v3.x evolution into one deployable Harness baseline.
+v4.1 consolidates the v3.x evolution into one deployable Harness baseline.
 
 ## Consolidated lifecycle
 

@@ -14,6 +14,8 @@ def main():
     ap=argparse.ArgumentParser(prog="harness")
     sub=ap.add_subparsers(dest="cmd", required=True)
 
+    p=sub.add_parser("intent"); p.add_argument("text", nargs="+")
+    p=sub.add_parser("bootstrap"); p.add_argument("--prd", default="docs/product/prd-master.md"); p.add_argument("--skip-audit", action="store_true"); p.add_argument("--skip-self-test", action="store_true")
     p=sub.add_parser("detect")
     p=sub.add_parser("self-test")
 
@@ -45,6 +47,12 @@ def main():
 
     a=ap.parse_args()
 
+    if a.cmd=="intent": return call("intent_router.py", a.text)
+    if a.cmd=="bootstrap":
+        args=["--prd",a.prd]
+        if a.skip_audit: args.append("--skip-audit")
+        if a.skip_self_test: args.append("--skip-self-test")
+        return call("bootstrap.py", args)
     if a.cmd=="detect": return call("detect_project.py", [])
     if a.cmd=="self-test": return call("harness.py", ["self-test"])
     if a.cmd=="feature": return call("harness.py", ["feature", a.task_id])

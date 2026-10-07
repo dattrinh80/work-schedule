@@ -1,8 +1,8 @@
 defaults:
-  max_iterations: 10
-  no_progress_limit: 3
-  max_changed_files: 60
-  max_new_dependencies: 50
+  max_iterations: 5
+  no_progress_limit: 2
+  max_changed_files: 20
+  max_new_dependencies: 0
 
 small_bugfix:
   max_iterations: 3

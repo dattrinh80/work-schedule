@@ -1,6 +1,6 @@
-# Productionization - v4.0
+# Productionization - v4.1
 
-v4.0 converts selected governance from prose into executable enforcement.
+v4.1 converts selected governance from prose into executable enforcement.
 
 ## Added
 

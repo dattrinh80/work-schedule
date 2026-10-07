@@ -1,6 +1,6 @@
 # Generic Feature Command
 
-Execute the FEATURE workflow under AI Software Development Harness v4.0.
+Execute the FEATURE workflow under AI Software Development Harness v4.1.
 
 Inputs:
 - task ID or task contract

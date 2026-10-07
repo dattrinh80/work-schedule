@@ -1,6 +1,6 @@
 # Codex Worker Launch
 
-The v4.0 supervisor launches Codex inside the worker worktree.
+The v4.1 supervisor launches Codex inside the worker worktree.
 
 Recommended non-interactive pattern:
 

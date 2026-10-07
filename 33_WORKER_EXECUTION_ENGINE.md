@@ -1,4 +1,4 @@
-# Worker Execution Engine - v4.0
+# Worker Execution Engine - v4.1
 
 ## Purpose
 

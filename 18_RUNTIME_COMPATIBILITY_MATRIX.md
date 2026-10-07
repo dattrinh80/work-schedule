@@ -1,4 +1,4 @@
-# Runtime Compatibility Matrix - v4.0
+# Runtime Compatibility Matrix - v4.1
 
 This file maps Harness Core concepts to verified runtime capabilities.
 

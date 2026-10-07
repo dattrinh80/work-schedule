@@ -1,4 +1,4 @@
-# Autonomous Worker Launcher - v4.0
+# Autonomous Worker Launcher - v4.1
 
 ## Goal
 

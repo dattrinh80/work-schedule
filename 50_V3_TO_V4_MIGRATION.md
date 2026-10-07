@@ -1,4 +1,4 @@
-# v3.x -> v4.0 Migration
+# v3.x -> v4.1 Migration
 
 ## Canonical entry points
 
@@ -11,7 +11,7 @@ Legacy scripts remain usable but are implementation details.
 ## Recommended migration
 
 1. Back up `.ai/`.
-2. Replace Harness core with v4.0.
+2. Replace Harness core with v4.1.
 3. Preserve project-specific `docs/`, task history and project command configuration.
 4. Review consolidated config.
 5. Run `harness audit`.

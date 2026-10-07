@@ -1,6 +1,6 @@
 # Production Hardening
 
-Before using v4.0 on a production repository:
+Before using v4.1 on a production repository:
 
 1. Keep runtime dry-run enabled initially.
 2. Configure actual build/lint/type/test commands.

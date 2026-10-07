@@ -1,4 +1,4 @@
-# Git Worktree / Branch Isolation - v4.0
+# Git Worktree / Branch Isolation - v4.1
 
 ## Goal
 

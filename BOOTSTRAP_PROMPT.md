@@ -28,7 +28,7 @@ Expected outputs:
 - residual risks
 
 
-## v4.0 bootstrap preflight
+## v4.1 bootstrap preflight
 
 Before foundation design:
 1. Run project auto-detection.

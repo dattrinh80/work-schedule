@@ -1,4 +1,4 @@
-# Project Auto-Detection & Bootstrap Engine - v4.0
+# Project Auto-Detection & Bootstrap Engine - v4.1
 
 ## Purpose
 

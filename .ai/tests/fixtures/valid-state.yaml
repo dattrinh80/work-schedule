@@ -1,6 +1,6 @@
 task_id: TEST-001
 status: CREATED
-workflow_version: "4.0.0"
+workflow_version: "4.1.0"
 iterations: 0
 changed_files: []
 blocking_issues: []
