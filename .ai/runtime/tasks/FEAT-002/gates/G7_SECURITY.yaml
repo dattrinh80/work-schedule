@@ -1,0 +1,9 @@
+gate_id: G7_SECURITY
+status: PASS
+severity: blocking
+failed_rule_ids: []
+evidence:
+- .ai/runtime/tasks/FEAT-002/evidence/G7_SECURITY-security_test.log
+repair_instruction: null
+owner: null
+timestamp: '2026-10-07T01:44:41.555969+00:00'

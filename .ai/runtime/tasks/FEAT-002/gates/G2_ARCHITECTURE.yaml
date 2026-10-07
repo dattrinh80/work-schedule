@@ -1,0 +1,10 @@
+gate_id: G2_ARCHITECTURE
+status: PASS
+severity: blocking
+failed_rule_ids: []
+evidence:
+- .ai/runtime/tasks/FEAT-002/evidence/G2-budget.log
+- .ai/runtime/tasks/FEAT-002/evidence/G2_ARCHITECTURE-architecture_test.log
+repair_instruction: null
+owner: null
+timestamp: '2026-10-07T01:44:35.970269+00:00'

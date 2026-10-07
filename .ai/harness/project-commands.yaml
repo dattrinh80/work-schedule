@@ -1,11 +1,11 @@
 commands:
-  install: ''
-  build: ''
-  lint: ''
-  typecheck: ''
-  test: ''
-  contract_test: ''
-  architecture_test: ''
-  ui_test: ''
-  security_test: ''
+  install: pnpm install --frozen-lockfile
+  build: pnpm build
+  lint: pnpm lint
+  typecheck: pnpm typecheck
+  test: pnpm test
+  contract_test: pnpm run test:contract
+  architecture_test: pnpm run test:architecture
+  ui_test: pnpm --filter @wms/web run test
+  security_test: pnpm run test:security
   database_test: ''

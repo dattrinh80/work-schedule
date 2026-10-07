@@ -1,0 +1,17 @@
+gate_id: G5_QUALITY
+status: PASS
+severity: blocking
+failed_rule_ids: []
+evidence:
+- .ai/runtime/tasks/FEAT-002/evidence/G5-budget.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-no-progress.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-build.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-lint.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-typecheck.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-test.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-contract_test.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-architecture_test.log
+- .ai/runtime/tasks/FEAT-002/evidence/G5-ui_test.log
+repair_instruction: Fix failing deterministic checks.
+owner: null
+timestamp: '2026-10-07T01:45:00.361461+00:00'

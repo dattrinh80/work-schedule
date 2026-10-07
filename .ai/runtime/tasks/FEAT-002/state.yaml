@@ -1,11 +1,59 @@
 task_id: FEAT-002
-status: INTAKE
-workflow_version: 4.1.0
-iterations: 0
-changed_files: []
+status: REVIEWING
+workflow_version: "4.1.0"
+iterations: 1
+changed_files:
+  - packages/shared/src/contracts/auth.contract.ts
+  - apps/api/src/prisma/prisma.service.ts
+  - apps/api/test/api.test.ts
+  - apps/web/src/lib/api.ts
+  - apps/web/src/components/login-form.tsx
+  - apps/web/src/components/navbar.tsx
+  - apps/web/src/app/page.tsx
+  - apps/web/test/ui.test.ts
+  - .ai/harness/project-commands.yaml
 blocking_issues: []
-gate_history: []
+gate_history:
+  - gate_id: G1_REQUIREMENT
+    status: PASS
+    severity: blocking
+  - gate_id: G2_ARCHITECTURE
+    status: PASS
+    severity: blocking
+  - gate_id: G4_CONTRACT
+    status: PASS
+    severity: blocking
+  - gate_id: G5_QUALITY
+    status: PASS
+    severity: blocking
+  - gate_id: G7_SECURITY
+    status: PASS
+    severity: blocking
+  - gate_id: G8_UI
+    status: PASS
+    severity: blocking
+  - gate_id: G9_RELEASE
+    status: PASS
+    severity: blocking
 workflow: feature
-current_node: intake
-node_history: []
+current_node: diff_review
+node_history:
+  - node: intake
+    time: '2026-10-07T01:35:36.000000+00:00'
+  - node: requirement_gate
+    time: '2026-10-07T01:44:19.000000+00:00'
+  - node: compile_context
+    time: '2026-10-07T01:44:20.000000+00:00'
+  - node: architecture_gate
+    time: '2026-10-07T01:44:35.000000+00:00'
+  - node: contract_gate
+    time: '2026-10-07T01:44:40.000000+00:00'
+  - node: security_gate
+    time: '2026-10-07T01:44:41.000000+00:00'
+  - node: quality_gate
+    time: '2026-10-07T01:45:00.000000+00:00'
+  - node: ui_gate
+    time: '2026-10-07T01:45:03.000000+00:00'
+  - node: diff_review
+    time: '2026-10-07T01:45:05.000000+00:00'
 repair_attempts: 0

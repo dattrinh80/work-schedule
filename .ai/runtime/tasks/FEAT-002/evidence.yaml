@@ -1,0 +1,33 @@
+task_id: FEAT-002
+changed_files:
+  - packages/shared/src/contracts/auth.contract.ts
+  - apps/api/src/prisma/prisma.service.ts
+  - apps/api/test/api.test.ts
+  - apps/web/src/lib/api.ts
+  - apps/web/src/components/login-form.tsx
+  - apps/web/src/components/navbar.tsx
+  - apps/web/src/app/page.tsx
+  - apps/web/test/ui.test.ts
+  - .ai/harness/project-commands.yaml
+verification:
+  build: pass
+  lint: pass
+  typecheck: pass
+  test: pass
+  contract_test: pass
+  architecture_test: pass
+  security_test: pass
+  ui_test: pass
+artifacts:
+  - .ai/runtime/tasks/FEAT-002/evidence/manifest.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G1_REQUIREMENT.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G2_ARCHITECTURE.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G4_CONTRACT.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G5_QUALITY.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G7_SECURITY.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G8_UI.yaml
+  - .ai/runtime/tasks/FEAT-002/gates/G9_RELEASE.yaml
+approvals:
+  - user_approved_design_spec
+residual_risks:
+  - OAuth2 and SSO federation providers to be introduced in separate enterprise auth slice

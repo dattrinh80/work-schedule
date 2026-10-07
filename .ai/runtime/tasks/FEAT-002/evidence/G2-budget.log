@@ -1,0 +1,6 @@
+Changed files: 5/20
+- .ai/harness/project-commands.yaml
+- .ai/runtime/checkpoints/FEAT-002/
+- .ai/runtime/tasks/FEAT-002/evidence/
+- .ai/runtime/tasks/FEAT-002/gates/
+- .ai/runtime/tasks/FEAT-002/trace.jsonl

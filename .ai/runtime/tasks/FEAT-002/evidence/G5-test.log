@@ -1,0 +1,54 @@
+$ pnpm -r run test
+Scope: 3 of 4 workspace projects
+packages/shared test$ node --test test/*.test.mjs
+packages/shared test: âœ” shared package exports correct enums and models (1.2034ms)
+packages/shared test: â„¹ tests 1
+packages/shared test: â„¹ suites 0
+packages/shared test: â„¹ pass 1
+packages/shared test: â„¹ fail 0
+packages/shared test: â„¹ cancelled 0
+packages/shared test: â„¹ skipped 0
+packages/shared test: â„¹ todo 0
+packages/shared test: â„¹ duration_ms 77.9643
+packages/shared test: Done
+apps/api test$ tsc -p tsconfig.json && node --test dist/test/**/*.test.js
+apps/web test$ tsc && node --test dist/test/*.test.js
+apps/web test: â–¶ WMS Web UI Deterministic Test Suite
+apps/web test:   âœ” StatusBadge: renders valid status tokens for all lifecycle statuses (1.3732ms)
+apps/web test:   âœ” PriorityBadge: renders valid styling tokens for all priorities (0.42ms)
+apps/web test:   âœ” UI Tokens: enforce design tokens from UX baseline (0.2204ms)
+apps/web test:   âœ” API Client: provides required methods and token storage (0.2326ms)
+apps/web test:   âœ” Scope Storage: manages active scope persistence (0.3146ms)
+apps/web test:   âœ” LoginForm: provides accessible inputs and preset demo accounts (6.986ms)
+apps/web test:   âœ” Navbar: renders admin scope switcher vs locked branch badge for staff (3.7956ms)
+apps/web test: âœ” WMS Web UI Deterministic Test Suite (16.1667ms)
+apps/web test: â„¹ tests 8
+apps/web test: â„¹ suites 0
+apps/web test: â„¹ pass 8
+apps/web test: â„¹ fail 0
+apps/web test: â„¹ cancelled 0
+apps/web test: â„¹ skipped 0
+apps/web test: â„¹ todo 0
+apps/web test: â„¹ duration_ms 123.4621
+apps/web test: Done
+apps/api test: â–¶ WMS Backend API Integration Suite
+apps/api test:   âœ” Auth: logs in successfully with valid admin credentials (65.6803ms)
+apps/api test:   âœ” Auth: rejects login with invalid password (63.7797ms)
+apps/api test:   âœ” Organizations: returns active facilities and sanitized users (0.3907ms)
+apps/api test:   âœ” Tasks: creates new task with facility and user assignment (0.3166ms)
+apps/api test:   âœ” Tasks: updates task details and changes status to BLOCKED and CANCELLED (0.4362ms)
+apps/api test:   âœ” Tasks: updates task status to COMPLETED and records completion audit (0.1917ms)
+apps/api test:   âœ” Tasks: removes task when deleted by authorized admin (0.3856ms)
+apps/api test:   âœ” Tasks: enforces role-based task scoping for teachers (0.2742ms)
+apps/api test:   âœ” Auth: logs in successfully with facility manager credentials (128.3356ms)
+apps/api test:   âœ” Tasks: filters tasks by facilityId query parameter (0.3847ms)
+apps/api test: âœ” WMS Backend API Integration Suite (332.5505ms)
+apps/api test: â„¹ tests 11
+apps/api test: â„¹ suites 0
+apps/api test: â„¹ pass 11
+apps/api test: â„¹ fail 0
+apps/api test: â„¹ cancelled 0
+apps/api test: â„¹ skipped 0
+apps/api test: â„¹ todo 0
+apps/api test: â„¹ duration_ms 852.0415
+apps/api test: Done
