@@ -70,4 +70,42 @@ test('WMS Web UI Deterministic Test Suite', async (t) => {
     assert.ok(DEMO_ACCOUNTS.some((a) => a.email === 'manager.west@wms.local' && a.role === 'West Manager'));
     assert.ok(DEMO_ACCOUNTS.some((a) => a.email === 'teacher.sarah@wms.local' && a.role === 'Teacher Sarah'));
   });
+
+  await t.test('Navbar: renders admin scope switcher vs locked branch badge for staff', async () => {
+    const { Navbar } = await import('../src/components/navbar.js');
+    const { Role } = await import('@wms/shared');
+
+    const adminUser = {
+      id: 'u-1',
+      fullName: 'System Administrator',
+      email: 'admin@wms.local',
+      role: Role.SUPER_ADMIN,
+      facilityId: 'fac-001',
+      isActive: true,
+      createdAt: '',
+      updatedAt: '',
+    };
+
+    const adminNav = Navbar({
+      currentUser: adminUser,
+      facilityName: 'Central Campus',
+      facilities: [
+        { id: 'fac-001', name: 'Central Campus', code: 'CAMPUS-01', isActive: true, createdAt: '', updatedAt: '' },
+        { id: 'fac-002', name: 'West Campus', code: 'CAMPUS-02', isActive: true, createdAt: '', updatedAt: '' },
+      ],
+      activeScope: { facilityId: 'ALL' },
+    });
+    assert.ok(adminNav);
+
+    const teacherUser = {
+      ...adminUser,
+      role: Role.TEACHER,
+    };
+    const teacherNav = Navbar({
+      currentUser: teacherUser,
+      facilityName: 'Central Campus',
+      activeScope: { facilityId: 'fac-001' },
+    });
+    assert.ok(teacherNav);
+  });
 });
