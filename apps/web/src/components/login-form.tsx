@@ -58,20 +58,30 @@ export function LoginForm({ onLogin, loading, error }: LoginFormProps) {
   };
 
   return (
-    <div className="min-h-screen bg-canvas flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="inline-flex w-12 h-12 rounded-card bg-brand-600 items-center justify-center text-white font-bold text-xl shadow-subtle mb-3">
-          W
+    <div className="min-h-screen bg-canvas flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Decorative subtle background wave asset */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-40 bg-bottom bg-repeat-x z-0"
+        style={{ backgroundImage: 'url(/assets/aqua/04_WMS_Aqua_Wave_Background.png)', backgroundSize: '1200px auto' }}
+      />
+
+      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10">
+        <div className="inline-flex items-center justify-center mb-3">
+          <img
+            src="/assets/aqua/02_WMS_Enterprise_Aqua_Logo.png"
+            alt="WMS Enterprise Aqua Logo"
+            className="h-12 w-auto object-contain filter drop-shadow-sm"
+          />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight text-zinc-900">
+        <h2 className="text-2xl font-bold tracking-tight text-text-primary">
           Work Management System
         </h2>
-        <p className="mt-1 text-xs text-zinc-500 font-medium">
+        <p className="mt-1 text-xs text-text-secondary font-medium">
           Enterprise Multi-Facility Operations & Academic Scheduling
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="bg-surface py-8 px-6 shadow-card border border-border-default sm:rounded-modal sm:px-10">
           {error && (
             <div className="mb-5 p-3 rounded-control bg-rose-50 border border-rose-200 text-xs text-rose-700">
@@ -87,7 +97,7 @@ export function LoginForm({ onLogin, loading, error }: LoginFormProps) {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5">
                 Email Address
               </label>
               <input
@@ -99,12 +109,12 @@ export function LoginForm({ onLogin, loading, error }: LoginFormProps) {
                   setSelectedDemo('');
                 }}
                 placeholder="name@wms.local"
-                className="w-full px-3.5 py-2 bg-surface border border-border-default rounded-control text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 transition-all"
+                className="w-full px-3.5 py-2 bg-surface border border-border-default rounded-control text-xs text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-aqua-focus/20 focus:border-aqua-primary transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <input
@@ -113,14 +123,14 @@ export function LoginForm({ onLogin, loading, error }: LoginFormProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2 bg-surface border border-border-default rounded-control text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 transition-all"
+                className="w-full px-3.5 py-2 bg-surface border border-border-default rounded-control text-xs text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-aqua-focus/20 focus:border-aqua-primary transition-all"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center py-2.5 px-4 border border-transparent rounded-control text-xs font-semibold text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors disabled:opacity-60 shadow-subtle"
+              className="w-full flex items-center justify-center py-2.5 px-4 border border-transparent rounded-control text-xs font-semibold text-white bg-aqua-primary hover:bg-aqua-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-aqua-focus transition-colors disabled:opacity-60 shadow-subtle cursor-pointer"
             >
               {loading ? (
                 <>
@@ -138,10 +148,10 @@ export function LoginForm({ onLogin, loading, error }: LoginFormProps) {
 
           <div className="mt-6 pt-6 border-t border-border-subtle">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
                 Select Test Demo Account:
               </span>
-              <span className="text-[11px] text-zinc-400">Click to switch</span>
+              <span className="text-[11px] text-text-muted">Click to switch</span>
             </div>
 
             <div className="grid grid-cols-1 gap-2.5">
@@ -154,20 +164,20 @@ export function LoginForm({ onLogin, loading, error }: LoginFormProps) {
                     onClick={() => handleSelectAccount(acc.email)}
                     className={`flex items-center justify-between p-2.5 rounded-control border text-left transition-all ${
                       isSelected
-                        ? 'border-brand-600 bg-brand-50/60 ring-2 ring-brand-500/20'
-                        : 'border-border-default hover:border-zinc-300 hover:bg-zinc-50 bg-surface'
+                        ? 'border-aqua-primary bg-aqua-soft/50 ring-2 ring-aqua-focus/20'
+                        : 'border-border-default hover:border-aqua-primary/40 hover:bg-canvas bg-surface'
                     }`}
                   >
                     <div>
-                      <div className="text-xs font-bold text-zinc-900 flex items-center space-x-2">
+                      <div className="text-xs font-bold text-text-primary flex items-center space-x-2">
                         <span>{acc.role}</span>
                         <span className={`text-[10px] px-1.5 py-0.2 rounded border font-medium ${acc.color}`}>
                           {acc.badge}
                         </span>
                       </div>
-                      <div className="text-[11px] text-zinc-500 font-mono mt-0.5">{acc.email}</div>
+                      <div className="text-[11px] text-text-secondary font-mono mt-0.5">{acc.email}</div>
                     </div>
-                    <span className="text-xs font-semibold text-brand-600 hover:text-brand-800 flex items-center space-x-1">
+                    <span className="text-xs font-semibold text-aqua-primary hover:text-aqua-hover flex items-center space-x-1">
                       <span>Log in</span>
                       <span>&rarr;</span>
                     </span>

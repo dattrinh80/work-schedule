@@ -209,14 +209,14 @@ export function TaskDetailModal({
         {/* Header */}
         <div className="flex justify-between items-start gap-3 pb-3 border-b border-border-subtle shrink-0">
           <div className="space-y-1.5 min-w-0 flex-1">
-            <h2 className="text-base font-bold text-zinc-900 leading-snug truncate">
+            <h2 className="text-base font-bold text-text-primary leading-snug truncate">
               {task.title}
             </h2>
             <div className="flex items-center space-x-2 pt-0.5">
               <PriorityBadge priority={task.priority} />
               <StatusBadge status={task.status} />
               {subtasks.length > 0 && (
-                <span className="text-[11px] font-semibold text-zinc-500 bg-surface-subtle px-2 py-0.5 rounded border border-border-default">
+                <span className="text-[11px] font-semibold text-text-secondary bg-canvas px-2 py-0.5 rounded border border-border-default">
                   {completedCount}/{subtasks.length} subtasks
                 </span>
               )}
@@ -224,7 +224,7 @@ export function TaskDetailModal({
           </div>
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-zinc-700 font-medium text-sm p-1.5 rounded-control hover:bg-zinc-100 transition-colors"
+            className="text-text-muted hover:text-text-primary font-medium text-sm p-1.5 rounded-control hover:bg-canvas transition-colors"
           >
             ✕
           </button>
@@ -237,8 +237,8 @@ export function TaskDetailModal({
             onClick={() => setActiveTab('overview')}
             className={`px-3 py-2 border-b-2 transition-all flex items-center space-x-1.5 ${
               activeTab === 'overview'
-                ? 'border-brand-600 text-brand-600'
-                : 'border-transparent text-zinc-500 hover:text-zinc-800'
+                ? 'border-aqua-primary text-aqua-primary'
+                : 'border-transparent text-text-secondary hover:text-text-primary'
             }`}
           >
             <span>Overview</span>
@@ -249,13 +249,13 @@ export function TaskDetailModal({
             onClick={() => setActiveTab('subtasks')}
             className={`px-3 py-2 border-b-2 transition-all flex items-center space-x-1.5 ${
               activeTab === 'subtasks'
-                ? 'border-brand-600 text-brand-600'
-                : 'border-transparent text-zinc-500 hover:text-zinc-800'
+                ? 'border-aqua-primary text-aqua-primary'
+                : 'border-transparent text-text-secondary hover:text-text-primary'
             }`}
           >
             <ListTodo className="w-3.5 h-3.5" />
             <span>Subtasks</span>
-            <span className="bg-zinc-100 text-zinc-600 text-[10px] px-1.5 py-0.2 rounded-full">
+            <span className="bg-canvas text-text-secondary text-[10px] px-1.5 py-0.2 rounded-full border border-border-default">
               {subtasks.length}
             </span>
           </button>
@@ -265,13 +265,13 @@ export function TaskDetailModal({
             onClick={() => setActiveTab('comments')}
             className={`px-3 py-2 border-b-2 transition-all flex items-center space-x-1.5 ${
               activeTab === 'comments'
-                ? 'border-brand-600 text-brand-600'
-                : 'border-transparent text-zinc-500 hover:text-zinc-800'
+                ? 'border-aqua-primary text-aqua-primary'
+                : 'border-transparent text-text-secondary hover:text-text-primary'
             }`}
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>Activity & Notes</span>
-            <span className="bg-zinc-100 text-zinc-600 text-[10px] px-1.5 py-0.2 rounded-full">
+            <span className="bg-canvas text-text-secondary text-[10px] px-1.5 py-0.2 rounded-full border border-border-default">
               {comments.length}
             </span>
           </button>
@@ -282,11 +282,11 @@ export function TaskDetailModal({
           {activeTab === 'overview' && (
             <>
               {/* Description */}
-              <div className="bg-surface-subtle rounded-card p-3.5 border border-border-default">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
+              <div className="bg-canvas rounded-card p-3.5 border border-border-default">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-text-secondary mb-1">
                   Description
                 </div>
-                <p className="text-xs text-zinc-700 whitespace-pre-wrap leading-relaxed">
+                <p className="text-xs text-text-primary whitespace-pre-wrap leading-relaxed">
                   {task.description || 'No description provided.'}
                 </p>
               </div>
@@ -295,12 +295,12 @@ export function TaskDetailModal({
               {subtasks.length > 0 && (
                 <div className="bg-surface p-3 rounded-card border border-border-default space-y-1.5">
                   <div className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-zinc-700">Checklist Progress</span>
-                    <span className="text-zinc-500 font-bold">{progressPercent}%</span>
+                    <span className="font-semibold text-text-primary">Checklist Progress</span>
+                    <span className="text-aqua-primary font-bold">{progressPercent}%</span>
                   </div>
-                  <div className="w-full bg-zinc-100 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-border-subtle rounded-full h-2 overflow-hidden">
                     <div
-                      className="bg-brand-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-aqua-primary h-2 rounded-full transition-all duration-300"
                       style={{ width: `${progressPercent}%` }}
                     />
                   </div>
@@ -309,46 +309,46 @@ export function TaskDetailModal({
 
               {/* Metadata Details Grid */}
               <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 bg-surface-subtle rounded-control border border-border-default">
-                  <span className="text-zinc-400 block font-medium text-[11px] flex items-center space-x-1">
-                    <UserCheck className="w-3 h-3 text-zinc-400" />
+                <div className="p-3 bg-canvas rounded-control border border-border-default">
+                  <span className="text-text-muted block font-medium text-[11px] flex items-center space-x-1">
+                    <UserCheck className="w-3 h-3 text-text-muted" />
                     <span>Assigned To</span>
                   </span>
-                  <span className="font-semibold text-zinc-800 mt-1 block">
+                  <span className="font-semibold text-text-primary mt-1 block">
                     {task.assigneeUser?.fullName || 'Unassigned'}
                   </span>
                 </div>
 
-                <div className="p-3 bg-surface-subtle rounded-control border border-border-default">
-                  <span className="text-zinc-400 block font-medium text-[11px] flex items-center space-x-1">
-                    <Building2 className="w-3 h-3 text-zinc-400" />
+                <div className="p-3 bg-canvas rounded-control border border-border-default">
+                  <span className="text-text-muted block font-medium text-[11px] flex items-center space-x-1">
+                    <Building2 className="w-3 h-3 text-text-muted" />
                     <span>Branch / Facility</span>
                   </span>
-                  <span className="font-semibold text-zinc-800 mt-1 block">
+                  <span className="font-semibold text-text-primary mt-1 block">
                     {task.facility?.name || task.facilityId}
                   </span>
                 </div>
 
-                <div className="p-3 bg-surface-subtle rounded-control border border-border-default">
-                  <span className="text-zinc-400 block font-medium text-[11px]">Created By</span>
-                  <span className="font-semibold text-zinc-800 mt-1 block">
+                <div className="p-3 bg-canvas rounded-control border border-border-default">
+                  <span className="text-text-muted block font-medium text-[11px]">Created By</span>
+                  <span className="font-semibold text-text-primary mt-1 block">
                     {task.creator?.fullName || task.creatorId}
                   </span>
                 </div>
 
-                <div className="p-3 bg-surface-subtle rounded-control border border-border-default">
-                  <span className="text-zinc-400 block font-medium text-[11px] flex items-center space-x-1">
-                    <Calendar className="w-3 h-3 text-zinc-400" />
+                <div className="p-3 bg-canvas rounded-control border border-border-default">
+                  <span className="text-text-muted block font-medium text-[11px] flex items-center space-x-1">
+                    <Calendar className="w-3 h-3 text-text-muted" />
                     <span>Due Date</span>
                   </span>
-                  <span className="font-semibold text-zinc-800 mt-1 block">
+                  <span className="font-semibold text-text-primary mt-1 block">
                     {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'Not set'}
                   </span>
                 </div>
               </div>
 
               {/* Audit timestamps */}
-              <div className="text-[11px] text-zinc-400 border-t border-border-subtle pt-2 flex justify-between">
+              <div className="text-[11px] text-text-muted border-t border-border-subtle pt-2 flex justify-between">
                 <span>Created: {new Date(task.createdAt).toLocaleString()}</span>
                 {task.completedAt && (
                   <span className="text-emerald-600 font-semibold">
@@ -362,14 +362,14 @@ export function TaskDetailModal({
           {activeTab === 'subtasks' && (
             <div className="space-y-4">
               {/* Progress Summary */}
-              <div className="flex items-center justify-between text-xs p-2.5 bg-surface-subtle rounded-card border border-border-default">
+              <div className="flex items-center justify-between text-xs p-2.5 bg-canvas rounded-card border border-border-default">
                 <div>
-                  <span className="text-zinc-500 font-medium">Progress: </span>
-                  <strong className="text-zinc-900">{completedCount} of {subtasks.length} completed</strong>
+                  <span className="text-text-secondary font-medium">Progress: </span>
+                  <strong className="text-text-primary">{completedCount} of {subtasks.length} completed</strong>
                 </div>
-                <div className="w-32 bg-zinc-200 rounded-full h-2 overflow-hidden ml-3">
+                <div className="w-32 bg-border-subtle rounded-full h-2 overflow-hidden ml-3">
                   <div
-                    className="bg-brand-600 h-2 rounded-full transition-all"
+                    className="bg-aqua-primary h-2 rounded-full transition-all"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
@@ -382,11 +382,11 @@ export function TaskDetailModal({
                   value={newSubtaskTitle}
                   onChange={(e) => setNewSubtaskTitle(e.target.value)}
                   placeholder="Add a checklist item or subtask..."
-                  className="flex-1 px-3 py-2 bg-surface border border-border-default rounded-control text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600"
+                  className="flex-1 px-3 py-2 bg-surface border border-border-default rounded-control text-xs text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-aqua-focus/20 focus:border-aqua-primary"
                 />
                 <button
                   type="submit"
-                  className="px-3 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-control shadow-subtle flex items-center space-x-1"
+                  className="px-3 py-2 bg-aqua-primary hover:bg-aqua-hover text-white text-xs font-semibold rounded-control shadow-subtle flex items-center space-x-1 cursor-pointer transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add</span>
@@ -396,30 +396,30 @@ export function TaskDetailModal({
               {/* Subtasks List */}
               <div className="space-y-2">
                 {subtasks.length === 0 ? (
-                  <div className="p-8 text-center text-xs text-zinc-400 bg-surface rounded-card border border-border-default">
+                  <div className="p-8 text-center text-xs text-text-muted bg-surface rounded-card border border-border-default">
                     No subtasks added yet. Break down this task with smaller actionable steps.
                   </div>
                 ) : (
                   subtasks.map((st) => (
                     <div
                       key={st.id}
-                      className="flex items-center justify-between p-2.5 bg-surface rounded-card border border-border-default hover:bg-zinc-50/50 transition-colors text-xs"
+                      className="flex items-center justify-between p-2.5 bg-surface rounded-card border border-border-default hover:bg-canvas transition-colors text-xs"
                     >
                       <button
                         type="button"
                         onClick={() => handleToggleSubtask(st.id, st.isCompleted)}
-                        className="flex items-center space-x-2.5 text-left flex-1 min-w-0"
+                        className="flex items-center space-x-2.5 text-left flex-1 min-w-0 cursor-pointer"
                       >
                         {st.isCompleted ? (
                           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         ) : (
-                          <Circle className="w-4 h-4 text-zinc-300 hover:text-zinc-500 shrink-0" />
+                          <Circle className="w-4 h-4 text-text-muted hover:text-aqua-primary shrink-0" />
                         )}
                         <span
                           className={`truncate ${
                             st.isCompleted
-                              ? 'line-through text-zinc-400'
-                              : 'text-zinc-800 font-medium'
+                              ? 'line-through text-text-muted'
+                              : 'text-text-primary font-medium'
                           }`}
                         >
                           {st.title}
@@ -429,7 +429,7 @@ export function TaskDetailModal({
                       <button
                         type="button"
                         onClick={() => handleDeleteSubtask(st.id)}
-                        className="p-1 text-zinc-300 hover:text-rose-600 transition-colors ml-2"
+                        className="p-1 text-text-muted hover:text-rose-600 transition-colors ml-2 cursor-pointer"
                         title="Delete subtask"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -450,13 +450,13 @@ export function TaskDetailModal({
                   value={newCommentText}
                   onChange={(e) => setNewCommentText(e.target.value)}
                   placeholder="Leave an operational update, feedback, or note..."
-                  className="w-full p-2.5 bg-surface border border-border-default rounded-control text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600"
+                  className="w-full p-2.5 bg-surface border border-border-default rounded-control text-xs text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-aqua-focus/20 focus:border-aqua-primary"
                 />
                 <div className="flex justify-end">
                   <button
                     type="submit"
                     disabled={!newCommentText.trim()}
-                    className="px-3.5 py-1.5 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white text-xs font-semibold rounded-control shadow-subtle flex items-center space-x-1.5"
+                    className="px-3.5 py-1.5 bg-aqua-primary hover:bg-aqua-hover disabled:opacity-50 text-white text-xs font-semibold rounded-control shadow-subtle flex items-center space-x-1.5 cursor-pointer transition-colors"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>Post Update</span>
@@ -467,7 +467,7 @@ export function TaskDetailModal({
               {/* Comments Feed */}
               <div className="space-y-3 pt-2">
                 {comments.length === 0 ? (
-                  <div className="p-8 text-center text-xs text-zinc-400 bg-surface rounded-card border border-border-default">
+                  <div className="p-8 text-center text-xs text-text-muted bg-surface rounded-card border border-border-default">
                     No activity notes posted on this task yet.
                   </div>
                 ) : (
@@ -477,14 +477,14 @@ export function TaskDetailModal({
                       className="p-3 bg-surface rounded-card border border-border-default space-y-1.5 text-xs shadow-subtle"
                     >
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="font-bold text-zinc-900">
+                        <span className="font-bold text-text-primary">
                           {c.author?.fullName || 'User'}
                         </span>
-                        <span className="text-zinc-400">
+                        <span className="text-text-muted">
                           {new Date(c.createdAt).toLocaleString()}
                         </span>
                       </div>
-                      <p className="text-zinc-700 whitespace-pre-wrap leading-relaxed">
+                      <p className="text-text-primary whitespace-pre-wrap leading-relaxed">
                         {c.content}
                       </p>
                     </div>
@@ -497,7 +497,7 @@ export function TaskDetailModal({
 
         {/* Status Actions Bar */}
         <div className="border-t border-border-subtle pt-3 space-y-1.5 shrink-0">
-          <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+          <label className="block text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
             Change Lifecycle Status
           </label>
           <div className="flex flex-wrap gap-1.5">
@@ -506,10 +506,10 @@ export function TaskDetailModal({
                 key={st}
                 onClick={() => onStatusChange(task.id, st)}
                 disabled={task.status === st}
-                className={`px-2.5 py-1 text-xs rounded-control font-semibold border transition-all ${
+                className={`px-2.5 py-1 text-xs rounded-control font-semibold border transition-all cursor-pointer ${
                   task.status === st
-                    ? 'bg-brand-600 text-white border-brand-600 shadow-subtle cursor-default'
-                    : 'bg-surface text-zinc-700 border-border-default hover:bg-zinc-50'
+                    ? 'bg-aqua-primary text-white border-aqua-primary shadow-subtle cursor-default'
+                    : 'bg-surface text-text-primary border-border-default hover:bg-canvas hover:border-aqua-primary/40'
                 }`}
               >
                 {st.replace('_', ' ')}
@@ -528,14 +528,14 @@ export function TaskDetailModal({
                 onClose();
               }
             }}
-            className="px-3 py-1.5 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-control transition-colors font-semibold"
+            className="px-3 py-1.5 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-control transition-colors font-semibold cursor-pointer"
           >
             Delete Task
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 bg-zinc-900 text-white text-xs font-semibold rounded-control hover:bg-zinc-800 transition-colors shadow-subtle"
+            className="px-4 py-1.5 bg-text-primary text-white text-xs font-semibold rounded-control hover:bg-text-secondary transition-colors shadow-subtle cursor-pointer"
           >
             Close
           </button>

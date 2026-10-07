@@ -3,11 +3,11 @@ import { TaskPriority, TaskStatus } from '@wms/shared';
 
 export function StatusBadge({ status }: { status: TaskStatus }) {
   const styles: Record<TaskStatus, string> = {
-    [TaskStatus.NEW]: 'bg-zinc-100 text-zinc-700 border-zinc-200',
+    [TaskStatus.NEW]: 'bg-slate-100 text-slate-700 border-slate-200',
     [TaskStatus.ASSIGNED]: 'bg-sky-50 text-sky-700 border-sky-200',
-    [TaskStatus.IN_PROGRESS]: 'bg-blue-50 text-blue-700 border-blue-200',
-    [TaskStatus.BLOCKED]: 'bg-amber-50 text-amber-700 border-amber-200',
-    [TaskStatus.PENDING_REVIEW]: 'bg-purple-50 text-purple-700 border-purple-200',
+    [TaskStatus.IN_PROGRESS]: 'bg-aqua-soft text-aqua-primary border-aqua-secondary/40 font-bold',
+    [TaskStatus.BLOCKED]: 'bg-rose-50 text-rose-700 border-rose-200',
+    [TaskStatus.PENDING_REVIEW]: 'bg-amber-50 text-amber-700 border-amber-200',
     [TaskStatus.COMPLETED]: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     [TaskStatus.CANCELLED]: 'bg-zinc-100 text-zinc-500 border-zinc-200 line-through',
     [TaskStatus.OVERDUE]: 'bg-red-100 text-red-800 border-red-300 font-semibold',
@@ -19,6 +19,9 @@ export function StatusBadge({ status }: { status: TaskStatus }) {
         styles[status] || styles[TaskStatus.NEW]
       }`}
     >
+      {status === TaskStatus.IN_PROGRESS && (
+        <span className="w-1.5 h-1.5 rounded-full bg-aqua-primary mr-1.5 animate-pulse" />
+      )}
       {status.replace('_', ' ')}
     </span>
   );
@@ -27,8 +30,8 @@ export function StatusBadge({ status }: { status: TaskStatus }) {
 export function PriorityBadge({ priority }: { priority: TaskPriority }) {
   const styles: Record<TaskPriority, string> = {
     [TaskPriority.LOW]: 'text-slate-600 bg-slate-100 border-slate-200',
-    [TaskPriority.MEDIUM]: 'text-blue-700 bg-blue-100 border-blue-200',
-    [TaskPriority.HIGH]: 'text-amber-800 bg-amber-100 border-amber-200',
+    [TaskPriority.MEDIUM]: 'text-aqua-primary bg-aqua-soft border-aqua-secondary/30',
+    [TaskPriority.HIGH]: 'text-amber-800 bg-amber-100 border-amber-300 font-bold',
     [TaskPriority.URGENT]: 'text-rose-800 bg-rose-100 border-rose-200 font-bold',
   };
 
@@ -38,6 +41,9 @@ export function PriorityBadge({ priority }: { priority: TaskPriority }) {
         styles[priority] || styles[TaskPriority.MEDIUM]
       }`}
     >
+      {priority === TaskPriority.HIGH && (
+        <span className="mr-1 text-amber-600">⚠</span>
+      )}
       {priority}
     </span>
   );

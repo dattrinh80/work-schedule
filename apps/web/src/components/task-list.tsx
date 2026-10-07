@@ -165,61 +165,64 @@ export function TaskList({
   };
 
   return (
-    <div className="space-y-5">
-      {/* 1. Status Filter Pills & Create Task Button Row */}
-      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
-        {/* Horizontal scrollable status pills */}
-        <div className="flex items-center space-x-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
-          {statusTabs.map((tab) => {
-            const isActive = filterStatus === tab.key;
-            return (
-              <button
-                key={tab.key}
-                type="button"
-                onClick={() => setFilterStatus(tab.key)}
-                className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
-                  isActive
-                    ? 'bg-brand-600 text-white shadow-subtle'
-                    : 'bg-surface text-zinc-600 hover:text-zinc-900 border border-border-default hover:bg-zinc-50'
-                }`}
-              >
-                <span>{tab.label}</span>
-                <span
-                  className={`px-1.5 py-0.2 rounded-full text-[11px] font-bold ${
-                    isActive
-                      ? 'bg-white/20 text-white'
-                      : 'bg-zinc-100 text-zinc-600'
-                  }`}
-                >
-                  {tab.count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+    <div className="space-y-4">
+      {/* 1. Tasks Title Row & Deep Aqua Create Task CTA */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-extrabold text-text-primary tracking-tight">
+          Tasks
+        </h2>
 
-        {/* Primary CTA */}
         <button
           type="button"
           onClick={onOpenCreateModal}
-          className="inline-flex items-center justify-center space-x-1.5 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-control shadow-subtle transition-all shrink-0"
+          className="inline-flex items-center justify-center space-x-1.5 px-4 py-2.5 bg-aqua-primary hover:bg-aqua-hover text-white text-xs font-bold rounded-control shadow-subtle transition-all shrink-0 active:bg-aqua-active"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Create Task</span>
         </button>
       </div>
 
-      {/* 2. Filter & Search Controls Bar */}
+      {/* 2. Status Filter Segment Pills (Aqua Themed) */}
+      <div className="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none">
+        {statusTabs.map((tab) => {
+          const isActive = filterStatus === tab.key;
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => setFilterStatus(tab.key)}
+              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                isActive
+                  ? 'bg-aqua-primary text-white shadow-subtle'
+                  : 'bg-surface text-text-secondary hover:text-text-primary border border-border-default hover:bg-surface-secondary'
+              }`}
+            >
+              <span>{tab.label}</span>
+              <span
+                className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                  isActive
+                    ? 'bg-white/25 text-white'
+                    : 'bg-surface-secondary text-text-muted border border-border-subtle'
+                }`}
+              >
+                {tab.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 3. Search & Operational Filter Bar (White Surface) */}
       <div className="bg-surface p-3 rounded-card border border-border-default shadow-subtle flex flex-col md:flex-row items-center gap-3">
         {/* Search input */}
         <div className="relative flex-1 w-full">
-          <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search tasks by title, description, assignee..."
-            className="w-full pl-9 pr-3 py-2 bg-surface text-xs text-zinc-900 placeholder-zinc-400 border border-border-default rounded-control focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 transition-all"
+            className="w-full pl-9 pr-3 py-2 bg-surface text-xs text-text-primary placeholder-text-muted border border-border-default rounded-control focus:outline-none focus:ring-2 focus:ring-aqua-focus/20 focus:border-aqua-primary transition-all"
           />
         </div>
 
@@ -227,12 +230,12 @@ export function TaskList({
         <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
           {/* Priority filter */}
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-zinc-500 font-medium">Priority</span>
+            <span className="text-text-muted font-medium">Priority</span>
             <div className="relative">
               <select
                 value={filterPriority}
                 onChange={(e) => setFilterPriority(e.target.value)}
-                className="pl-2.5 pr-7 py-2 bg-surface border border-border-default rounded-control text-xs font-medium text-zinc-800 appearance-none cursor-pointer focus:outline-none focus:border-brand-600"
+                className="pl-2.5 pr-7 py-2 bg-surface border border-border-default rounded-control text-xs font-medium text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-aqua-primary"
               >
                 <option value="ALL">All</option>
                 <option value={TaskPriority.LOW}>Low</option>
@@ -240,18 +243,18 @@ export function TaskList({
                 <option value={TaskPriority.HIGH}>High</option>
                 <option value={TaskPriority.URGENT}>Urgent</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-zinc-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-text-muted absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
           </div>
 
           {/* Status secondary filter */}
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-zinc-500 font-medium">Status</span>
+            <span className="text-text-muted font-medium">Status</span>
             <div className="relative">
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="pl-2.5 pr-7 py-2 bg-surface border border-border-default rounded-control text-xs font-medium text-zinc-800 appearance-none cursor-pointer focus:outline-none focus:border-brand-600"
+                className="pl-2.5 pr-7 py-2 bg-surface border border-border-default rounded-control text-xs font-medium text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-aqua-primary"
               >
                 <option value="ALL">All</option>
                 <option value={TaskStatus.NEW}>New</option>
@@ -261,24 +264,24 @@ export function TaskList({
                 <option value={TaskStatus.COMPLETED}>Completed</option>
                 <option value={TaskStatus.CANCELLED}>Cancelled</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-zinc-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-text-muted absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
           </div>
 
           {/* Due date filter */}
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-zinc-500 font-medium">Due Date</span>
+            <span className="text-text-muted font-medium">Due Date</span>
             <div className="relative">
               <select
                 value={filterDueDate}
                 onChange={(e) => setFilterDueDate(e.target.value)}
-                className="pl-2.5 pr-7 py-2 bg-surface border border-border-default rounded-control text-xs font-medium text-zinc-800 appearance-none cursor-pointer focus:outline-none focus:border-brand-600"
+                className="pl-2.5 pr-7 py-2 bg-surface border border-border-default rounded-control text-xs font-medium text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-aqua-primary"
               >
                 <option value="ALL">Any time</option>
                 <option value="TODAY">Due Today</option>
                 <option value="OVERDUE">Overdue</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-zinc-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-text-muted absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
           </div>
 
@@ -286,47 +289,47 @@ export function TaskList({
           <button
             type="button"
             onClick={handleClearFilters}
-            className="flex items-center space-x-1 px-3 py-2 text-xs font-medium text-zinc-600 hover:text-zinc-900 border border-border-default rounded-control hover:bg-zinc-50 transition-colors"
+            className="flex items-center space-x-1 px-3 py-2 text-xs font-medium text-text-secondary hover:text-text-primary border border-border-default rounded-control hover:bg-surface-secondary transition-colors"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-zinc-400" />
+            <RotateCcw className="w-3.5 h-3.5 text-text-muted" />
             <span>Clear</span>
           </button>
         </div>
       </div>
 
-      {/* 3. Results Summary, Sort & Layout Switcher */}
+      {/* 4. Results Summary, Sort & Layout Switcher */}
       <div className="flex items-center justify-between text-xs px-1">
-        <div className="text-zinc-500 font-medium">
+        <div className="text-text-secondary font-medium">
           {filteredTasks.length} {filteredTasks.length === 1 ? 'task' : 'tasks'} found
         </div>
 
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-2">
-            <span className="text-zinc-400">Sort by</span>
+            <span className="text-text-muted">Sort by</span>
             <div className="relative">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="pl-2.5 pr-7 py-1.5 bg-surface border border-border-default rounded-control text-xs font-medium text-zinc-800 appearance-none cursor-pointer focus:outline-none"
+                className="pl-2.5 pr-7 py-1.5 bg-surface border border-border-default rounded-control text-xs font-medium text-text-primary appearance-none cursor-pointer focus:outline-none"
               >
                 <option value="DUE_ASC">Due Date (Asc)</option>
                 <option value="DUE_DESC">Due Date (Desc)</option>
                 <option value="TITLE_ASC">Title (A-Z)</option>
                 <option value="NEWEST">Newest First</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-zinc-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-text-muted absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
           </div>
 
           {/* View mode toggle */}
-          <div className="flex items-center bg-zinc-100 p-0.5 rounded-control border border-border-default">
+          <div className="flex items-center bg-surface-secondary p-0.5 rounded-control border border-border-default">
             <button
               type="button"
               onClick={() => setViewMode('list')}
               className={`p-1 rounded ${
                 viewMode === 'list'
-                  ? 'bg-surface text-brand-600 shadow-subtle'
-                  : 'text-zinc-500 hover:text-zinc-800'
+                  ? 'bg-surface text-aqua-primary shadow-subtle'
+                  : 'text-text-muted hover:text-text-primary'
               }`}
               title="List view"
             >
@@ -337,8 +340,8 @@ export function TaskList({
               onClick={() => setViewMode('grid')}
               className={`p-1 rounded ${
                 viewMode === 'grid'
-                  ? 'bg-surface text-brand-600 shadow-subtle'
-                  : 'text-zinc-500 hover:text-zinc-800'
+                  ? 'bg-surface text-aqua-primary shadow-subtle'
+                  : 'text-text-muted hover:text-text-primary'
               }`}
               title="Grid view"
             >
@@ -348,18 +351,18 @@ export function TaskList({
         </div>
       </div>
 
-      {/* 4. Task Items Container */}
+      {/* 5. Task Items Container */}
       {filteredTasks.length === 0 ? (
         <div className="bg-surface rounded-card border border-border-default p-12 text-center shadow-subtle">
           <div className="max-w-sm mx-auto space-y-2">
-            <p className="text-sm font-semibold text-zinc-800">No operational tasks found</p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-sm font-semibold text-text-primary">No operational tasks found</p>
+            <p className="text-xs text-text-secondary">
               Try adjusting your search criteria, clearing filters, or create a new operational task.
             </p>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="mt-3 inline-flex items-center space-x-1.5 text-xs text-brand-600 font-semibold hover:underline"
+              className="mt-3 inline-flex items-center space-x-1.5 text-xs text-aqua-primary font-semibold hover:underline"
             >
               <span>Reset all filters</span>
             </button>
@@ -384,7 +387,7 @@ export function TaskList({
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => toggleSelectTask(task.id)}
-                      className="mt-1 w-4 h-4 rounded text-brand-600 border-border-default focus:ring-brand-500 cursor-pointer shrink-0"
+                      className="mt-1 w-4 h-4 rounded text-aqua-primary border-border-default focus:ring-aqua-focus cursor-pointer shrink-0"
                     />
 
                     <div className="space-y-1.5 min-w-0 flex-1">
@@ -393,7 +396,7 @@ export function TaskList({
                         <button
                           type="button"
                           onClick={() => onSelectTask(task)}
-                          className="font-bold text-zinc-900 text-sm hover:text-brand-600 transition-colors text-left"
+                          className="font-bold text-text-primary text-sm hover:text-aqua-primary transition-colors text-left"
                         >
                           {task.title}
                         </button>
@@ -403,31 +406,31 @@ export function TaskList({
 
                       {/* Description */}
                       {task.description && (
-                        <p className="text-xs text-zinc-500 line-clamp-1">
+                        <p className="text-xs text-text-secondary line-clamp-1">
                           {task.description}
                         </p>
                       )}
 
                       {/* Metadata Row: Assignee, Branch, Due Date */}
-                      <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-zinc-500 pt-0.5">
+                      <div className="flex flex-wrap items-center gap-y-1 gap-x-5 text-xs text-text-secondary pt-0.5">
                         <span className="flex items-center space-x-1.5">
-                          <User className="w-3.5 h-3.5 text-zinc-400" />
+                          <User className="w-3.5 h-3.5 text-text-muted" />
                           <span>
-                            Assigned: <strong className="text-zinc-800 font-medium">{task.assigneeUser?.fullName || 'Unassigned'}</strong>
+                            Assigned to: <strong className="text-text-primary font-medium">{task.assigneeUser?.fullName || 'Unassigned'}</strong>
                           </span>
                         </span>
 
                         <span className="flex items-center space-x-1.5">
-                          <Building2 className="w-3.5 h-3.5 text-zinc-400" />
+                          <Building2 className="w-3.5 h-3.5 text-text-muted" />
                           <span>
-                            Branch: <strong className="text-zinc-800 font-medium">{task.facility?.name || task.facilityId}</strong>
+                            Branch: <strong className="text-text-primary font-medium">{task.facility?.name || task.facilityId}</strong>
                           </span>
                         </span>
 
                         <span className="flex items-center space-x-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-zinc-400" />
+                          <Calendar className="w-3.5 h-3.5 text-text-muted" />
                           <span>
-                            Due: <strong className="text-zinc-800 font-medium">
+                            Due date: <strong className="text-text-primary font-medium">
                               {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No date'}
                             </strong>
                           </span>
@@ -444,7 +447,7 @@ export function TaskList({
                       <select
                         value={task.status}
                         onChange={(e) => onStatusChange(task.id, e.target.value as TaskStatus)}
-                        className="pl-7 pr-7 py-1.5 bg-surface border border-border-default rounded-control text-xs font-semibold text-zinc-800 appearance-none cursor-pointer hover:bg-zinc-50 focus:outline-none focus:border-brand-600 shadow-subtle"
+                        className="pl-7 pr-7 py-1.5 bg-surface border border-border-default rounded-control text-xs font-semibold text-text-primary appearance-none cursor-pointer hover:bg-surface-secondary focus:outline-none focus:border-aqua-primary shadow-subtle"
                       >
                         <option value={TaskStatus.NEW}>New</option>
                         <option value={TaskStatus.ASSIGNED}>Assigned</option>
@@ -454,14 +457,14 @@ export function TaskList({
                         <option value={TaskStatus.COMPLETED}>Completed</option>
                         <option value={TaskStatus.CANCELLED}>Cancelled</option>
                       </select>
-                      <ChevronDown className="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 pointer-events-none" />
+                      <ChevronDown className="w-3.5 h-3.5 text-text-muted absolute right-2.5 pointer-events-none" />
                     </div>
 
                     {/* Details modal button */}
                     <button
                       type="button"
                       onClick={() => onSelectTask(task)}
-                      className="px-3 py-1.5 text-xs font-semibold text-zinc-700 bg-surface hover:bg-zinc-50 border border-border-default rounded-control shadow-subtle transition-colors"
+                      className="px-3 py-1.5 text-xs font-semibold text-text-primary bg-surface hover:bg-surface-secondary border border-border-default rounded-control shadow-subtle transition-colors"
                     >
                       Details
                     </button>
@@ -473,7 +476,7 @@ export function TaskList({
                         onClick={() =>
                           setOpenActionMenuId(openActionMenuId === task.id ? null : task.id)
                         }
-                        className="p-1.5 rounded-control text-zinc-400 hover:text-zinc-800 hover:bg-zinc-100 transition-colors"
+                        className="p-1.5 rounded-control text-text-muted hover:text-text-primary hover:bg-surface-secondary transition-colors"
                         title="More options"
                       >
                         <MoreVertical className="w-4 h-4" />
@@ -487,7 +490,7 @@ export function TaskList({
                               setOpenActionMenuId(null);
                               onSelectTask(task);
                             }}
-                            className="w-full text-left px-3 py-1.5 hover:bg-zinc-50 text-zinc-700"
+                            className="w-full text-left px-3 py-1.5 hover:bg-surface-secondary text-text-primary"
                           >
                             View Details
                           </button>
@@ -514,8 +517,8 @@ export function TaskList({
         </div>
       )}
 
-      {/* 5. Pagination Footer matching reference */}
-      <div className="flex items-center justify-between text-xs text-zinc-500 pt-2 px-1">
+      {/* 6. Pagination Footer */}
+      <div className="flex items-center justify-between text-xs text-text-muted pt-2 px-1">
         <span>
           Showing 1–{filteredTasks.length} of {filteredTasks.length} results
         </span>
@@ -524,20 +527,20 @@ export function TaskList({
           <button
             type="button"
             disabled
-            className="p-1.5 rounded-control border border-border-default text-zinc-300 cursor-not-allowed bg-surface"
+            className="p-1.5 rounded-control border border-border-default text-text-muted/40 cursor-not-allowed bg-surface"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             type="button"
-            className="w-7 h-7 rounded-control bg-brand-600 text-white font-bold flex items-center justify-center text-xs shadow-subtle"
+            className="w-7 h-7 rounded-control bg-aqua-primary text-white font-bold flex items-center justify-center text-xs shadow-subtle"
           >
             1
           </button>
           <button
             type="button"
             disabled
-            className="p-1.5 rounded-control border border-border-default text-zinc-300 cursor-not-allowed bg-surface"
+            className="p-1.5 rounded-control border border-border-default text-text-muted/40 cursor-not-allowed bg-surface"
           >
             <ChevronRight className="w-4 h-4" />
           </button>

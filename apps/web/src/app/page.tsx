@@ -380,7 +380,13 @@ export default function WmsApp() {
       : currentUser.facilityId || facilities[0]?.id || 'fac-001';
 
   return (
-    <div className="min-h-screen bg-canvas flex flex-col font-sans text-zinc-900 antialiased">
+    <div className="min-h-screen bg-canvas flex flex-col font-sans text-text-primary antialiased relative selection:bg-aqua-soft selection:text-aqua-dark">
+      {/* Subtle Aqua Wave Background Asset in bottom canvas area */}
+      <div
+        className="fixed bottom-0 left-0 right-0 h-64 pointer-events-none opacity-25 z-0 bg-no-repeat bg-bottom bg-cover"
+        style={{ backgroundImage: `url('/assets/aqua/04_WMS_Aqua_Wave_Background.png')` }}
+      />
+
       {/* 1. Global Enterprise Topbar */}
       <Navbar
         currentUser={currentUser}
@@ -393,7 +399,7 @@ export default function WmsApp() {
       />
 
       {/* 2. Main Shell Layout with Fixed Left Sidebar */}
-      <div className="flex-1 flex w-full">
+      <div className="flex-1 flex w-full relative z-10">
         <Sidebar
           currentTab={activeMenuTab}
           onSelectTab={setActiveMenuTab}
@@ -403,39 +409,61 @@ export default function WmsApp() {
 
         {/* 3. Main Operational Content Canvas */}
         <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-          {/* Breadcrumb Path matching reference */}
-          <nav className="flex items-center space-x-2 text-xs text-zinc-500">
-            <button
-              type="button"
-              onClick={() => setActiveMenuTab('dashboard')}
-              className="hover:text-zinc-900 transition-colors flex items-center"
-            >
-              <svg className="w-3.5 h-3.5 text-zinc-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-            </button>
-            <span className="text-zinc-400">›</span>
-            <span className="font-medium text-zinc-700">Operational Tasks</span>
-          </nav>
+          {/* Visual Header Banner Variant with 03_WMS_Aqua_Campus_Banner.png matching reference */}
+          <div className="relative rounded-panel overflow-hidden border border-border-default shadow-subtle bg-surface">
+            {/* Campus Banner Image as contextual backdrop */}
+            <div
+              className="absolute inset-0 bg-cover bg-right sm:bg-center pointer-events-none opacity-90"
+              style={{
+                backgroundImage: `url('/assets/aqua/03_WMS_Aqua_Campus_Banner.png')`,
+              }}
+            />
+            {/* Soft Aqua gradient overlay to guarantee 100% WCAG contrast on text */}
+            <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-surface/30 sm:to-transparent pointer-events-none" />
 
-          {/* Header Row: Title & Subtitle on left, Quick Switch pill panel on right */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl lg:text-3xl font-extrabold text-zinc-900 tracking-tight">
+            <div className="relative z-10 p-6 sm:p-8 space-y-2 max-w-2xl">
+              <div className="text-xs font-semibold text-text-secondary flex items-center space-x-1.5">
+                <span>Welcome back,</span>
+                <strong className="text-text-primary font-bold">{currentUser.fullName.split(' ')[0]}</strong>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
                 Operational Task Board
               </h1>
-              <p className="text-xs lg:text-sm text-zinc-500 mt-1 font-normal">
+
+              <p className="text-xs sm:text-sm text-text-secondary font-medium leading-relaxed">
                 Manage cross-facility assignments, academic schedules, and operational workflows.
               </p>
             </div>
+          </div>
 
-            {/* Quick Switch Bar matching reference screenshot */}
-            <div className="flex items-center flex-wrap gap-2 p-1.5 bg-surface rounded-card border border-border-default shadow-subtle text-xs">
-              <div className="flex items-center space-x-1.5 px-2 text-zinc-500 font-semibold text-[11px] uppercase tracking-wider">
-                <svg className="w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {/* Quick Role Switch & User Context Panel matching reference */}
+          <div className="bg-surface p-3.5 rounded-card border border-border-default shadow-subtle flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Left: User Avatar & Branch/Role pill */}
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-full bg-aqua-soft text-aqua-primary font-bold flex items-center justify-center text-sm border border-aqua-secondary/30 shrink-0 shadow-subtle">
+                {currentUser.fullName.charAt(0)}
+              </div>
+              <div>
+                <div className="text-[11px] text-text-muted font-medium">Signed in as</div>
+                <div className="flex items-center space-x-2">
+                  <span className="font-bold text-text-primary text-sm">
+                    {currentUser.fullName}
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-aqua-soft text-aqua-primary border border-aqua-secondary/40">
+                    {currentUser.role.replace('_', ' ')}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Quick Switch account pills matching reference */}
+            <div className="flex items-center flex-wrap gap-2 text-xs">
+              <div className="flex items-center space-x-1.5 text-text-muted font-medium text-[11px] mr-1">
+                <svg className="w-3.5 h-3.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                 </svg>
-                <span>Quick Switch</span>
+                <span>Quick role switch</span>
               </div>
 
               <button
@@ -443,8 +471,8 @@ export default function WmsApp() {
                 onClick={() => handleLogin('admin@wms.local')}
                 className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
                   currentUser.email === 'admin@wms.local'
-                    ? 'bg-brand-600 text-white shadow-subtle'
-                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                    ? 'bg-aqua-primary text-white shadow-subtle'
+                    : 'bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-secondary border border-border-default'
                 }`}
               >
                 Admin (Global)
@@ -455,8 +483,8 @@ export default function WmsApp() {
                 onClick={() => handleLogin('manager.central@wms.local')}
                 className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
                   currentUser.email === 'manager.central@wms.local'
-                    ? 'bg-brand-600 text-white shadow-subtle'
-                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                    ? 'bg-aqua-primary text-white shadow-subtle'
+                    : 'bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-secondary border border-border-default'
                 }`}
               >
                 Central Mgr
@@ -467,8 +495,8 @@ export default function WmsApp() {
                 onClick={() => handleLogin('manager.west@wms.local')}
                 className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
                   currentUser.email === 'manager.west@wms.local'
-                    ? 'bg-brand-600 text-white shadow-subtle'
-                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                    ? 'bg-aqua-primary text-white shadow-subtle'
+                    : 'bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-secondary border border-border-default'
                 }`}
               >
                 West Mgr
@@ -479,8 +507,8 @@ export default function WmsApp() {
                 onClick={() => handleLogin('teacher.sarah@wms.local')}
                 className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
                   currentUser.email === 'teacher.sarah@wms.local'
-                    ? 'bg-brand-600 text-white shadow-subtle'
-                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                    ? 'bg-aqua-soft text-aqua-primary border border-aqua-secondary/50 font-bold shadow-subtle'
+                    : 'bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-secondary border border-border-default'
                 }`}
               >
                 Teacher Sarah
