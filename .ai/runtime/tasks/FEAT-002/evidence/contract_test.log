@@ -1,0 +1,3 @@
+$ node scripts/contract-check.mjs
+--- CONTRACT VALIDATION CHECK ---
+PASS: All API and shared contracts are fully verified and aligned.
