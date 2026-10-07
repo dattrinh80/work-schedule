@@ -1,5 +1,5 @@
 task_id: BOOTSTRAP-001
-status: REVIEWING
+status: DONE
 workflow_version: "4.0.0"
 iterations: 1
 changed_files:

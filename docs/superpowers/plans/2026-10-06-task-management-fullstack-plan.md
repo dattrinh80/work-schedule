@@ -24,12 +24,12 @@
 - Modify: `apps/api/src/app.module.ts`
 - Test: `apps/api/test/api.test.ts`
 
-- [ ] **Step 1: Write failing integration test for new endpoints in `apps/api/test/api.test.ts`**
-- [ ] **Step 2: Add `UpdateTaskDto` to `packages/shared/src/contracts/task.contract.ts` and rebuild shared**
-- [ ] **Step 3: Implement `OrganizationsController` for `GET /api/v1/facilities` and `GET /api/v1/users`**
-- [ ] **Step 4: Implement `update` and `remove` methods in `TasksService` and `TasksController`**
-- [ ] **Step 5: Verify tests pass (`pnpm --filter @wms/api run test`)**
-- [ ] **Step 6: Commit Task 1**
+- [x] **Step 1: Write failing integration test for new endpoints in `apps/api/test/api.test.ts`**
+- [x] **Step 2: Add `UpdateTaskDto` to `packages/shared/src/contracts/task.contract.ts` and rebuild shared**
+- [x] **Step 3: Implement `OrganizationsController` for `GET /api/v1/facilities` and `GET /api/v1/users`**
+- [x] **Step 4: Implement `update` and `remove` methods in `TasksService` and `TasksController`**
+- [x] **Step 5: Verify tests pass (`pnpm --filter @wms/api run test`)**
+- [x] **Step 6: Commit Task 1**
 
 ---
 
@@ -38,10 +38,10 @@
 - Create: `apps/web/src/lib/api.ts`
 - Test: `apps/web/test/ui.test.ts`
 
-- [ ] **Step 1: Implement typed `apiClient` supporting login, getMe, getFacilities, getUsers, getTasks, createTask, updateTaskStatus, deleteTask**
-- [ ] **Step 2: Add tests in `apps/web/test/ui.test.ts` verifying API client contract structure**
-- [ ] **Step 3: Verify tests pass (`pnpm --filter @wms/web run test`)**
-- [ ] **Step 4: Commit Task 2**
+- [x] **Step 1: Implement typed `apiClient` supporting login, getMe, getFacilities, getUsers, getTasks, createTask, updateTaskStatus, deleteTask**
+- [x] **Step 2: Add tests in `apps/web/test/ui.test.ts` verifying API client contract structure**
+- [x] **Step 3: Verify tests pass (`pnpm --filter @wms/web run test`)**
+- [x] **Step 4: Commit Task 2**
 
 ---
 
@@ -53,12 +53,12 @@
 - Modify: `apps/web/src/app/page.tsx`
 - Modify: `scripts/contract-check.mjs`
 
-- [ ] **Step 1: Create `TaskDetailModal` displaying task details, audit dates, status changer, and delete action**
-- [ ] **Step 2: Update `TaskList` with clickable titles to view details, and direct status selector**
-- [ ] **Step 3: Update `CreateTaskModal` to dynamically accept facilities and users from props**
-- [ ] **Step 4: Connect `apps/web/src/app/page.tsx` with live data loading, demo account switcher, and error handling**
-- [ ] **Step 5: Update `scripts/contract-check.mjs` to validate new routes**
-- [ ] **Step 6: Commit Task 3**
+- [x] **Step 1: Create `TaskDetailModal` displaying task details, audit dates, status changer, and delete action**
+- [x] **Step 2: Update `TaskList` with clickable titles to view details, and direct status selector**
+- [x] **Step 3: Update `CreateTaskModal` to dynamically accept facilities and users from props**
+- [x] **Step 4: Connect `apps/web/src/app/page.tsx` with live data loading, demo account switcher, and error handling**
+- [x] **Step 5: Update `scripts/contract-check.mjs` to validate new routes**
+- [x] **Step 6: Commit Task 3**
 
 ---
 
@@ -67,7 +67,7 @@
 - Update: `.ai/runtime/tasks/FEAT-001/evidence.yaml`
 - Update: `.ai/runtime/tasks/FEAT-001/state.yaml`
 
-- [ ] **Step 1: Run full deterministic verification (`harness verify FEAT-001`)**
-- [ ] **Step 2: Run all gates (`G1_REQUIREMENT`, `G2_ARCHITECTURE`, `G4_CONTRACT`, `G5_QUALITY`, `G7_SECURITY`, `G8_UI`, `G9_RELEASE`)**
-- [ ] **Step 3: Generate evidence manifest and update state.yaml**
-- [ ] **Step 4: Commit Task 4**
+- [x] **Step 1: Run full deterministic verification (`harness verify FEAT-001`)**
+- [x] **Step 2: Run all gates (`G1_REQUIREMENT`, `G2_ARCHITECTURE`, `G4_CONTRACT`, `G5_QUALITY`, `G7_SECURITY`, `G8_UI`, `G9_RELEASE`)**
+- [x] **Step 3: Generate evidence manifest and update state.yaml**
+- [x] **Step 4: Commit Task 4**
