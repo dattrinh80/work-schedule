@@ -172,4 +172,54 @@ export const apiClient = {
       method: 'DELETE',
     });
   },
+
+  // --- Subtask Endpoints (Module 4) ---
+  async getSubtasks(taskId: string): Promise<{ subtasks: import('@wms/shared').Subtask[]; total: number }> {
+    return request<{ subtasks: import('@wms/shared').Subtask[]; total: number }>(`/tasks/${taskId}/subtasks`);
+  },
+
+  async createSubtask(
+    taskId: string,
+    dto: { title: string; assigneeUserId?: string },
+  ): Promise<import('@wms/shared').Subtask> {
+    return request<import('@wms/shared').Subtask>(`/tasks/${taskId}/subtasks`, {
+      method: 'POST',
+      body: JSON.stringify(dto),
+    });
+  },
+
+  async toggleSubtask(
+    taskId: string,
+    subtaskId: string,
+    isCompleted: boolean,
+  ): Promise<import('@wms/shared').Subtask> {
+    return request<import('@wms/shared').Subtask>(`/tasks/${taskId}/subtasks/${subtaskId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ isCompleted }),
+    });
+  },
+
+  async deleteSubtask(
+    taskId: string,
+    subtaskId: string,
+  ): Promise<{ success: boolean; id: string }> {
+    return request<{ success: boolean; id: string }>(`/tasks/${taskId}/subtasks/${subtaskId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // --- Comment Endpoints (Module 5) ---
+  async getComments(taskId: string): Promise<{ comments: import('@wms/shared').TaskComment[]; total: number }> {
+    return request<{ comments: import('@wms/shared').TaskComment[]; total: number }>(`/tasks/${taskId}/comments`);
+  },
+
+  async addComment(
+    taskId: string,
+    content: string,
+  ): Promise<import('@wms/shared').TaskComment> {
+    return request<import('@wms/shared').TaskComment>(`/tasks/${taskId}/comments`, {
+      method: 'POST',
+      body: JSON.stringify({ content }),
+    });
+  },
 };

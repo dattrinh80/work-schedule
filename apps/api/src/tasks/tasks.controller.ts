@@ -87,4 +87,63 @@ export class TasksController {
   ): Promise<{ success: boolean; id: string }> {
     return this.tasksService.remove(id, user);
   }
+
+  // --- Subtask Endpoints ---
+
+  @Get(':id/subtasks')
+  async getSubtasks(
+    @Param('id') taskId: string,
+    @CurrentUser() user: User,
+  ) {
+    const subtasks = await this.tasksService.findSubtasks(taskId, user);
+    return { subtasks, total: subtasks.length };
+  }
+
+  @Post(':id/subtasks')
+  async createSubtask(
+    @Param('id') taskId: string,
+    @Body() body: { title: string; assigneeUserId?: string },
+    @CurrentUser() user: User,
+  ) {
+    return this.tasksService.createSubtask(taskId, body, user);
+  }
+
+  @Patch(':id/subtasks/:subtaskId')
+  async toggleSubtask(
+    @Param('id') taskId: string,
+    @Param('subtaskId') subtaskId: string,
+    @Body() body: { isCompleted: boolean },
+    @CurrentUser() user: User,
+  ) {
+    return this.tasksService.toggleSubtask(taskId, subtaskId, body.isCompleted, user);
+  }
+
+  @Delete(':id/subtasks/:subtaskId')
+  async deleteSubtask(
+    @Param('id') taskId: string,
+    @Param('subtaskId') subtaskId: string,
+    @CurrentUser() user: User,
+  ) {
+    return this.tasksService.removeSubtask(taskId, subtaskId, user);
+  }
+
+  // --- Comment Endpoints ---
+
+  @Get(':id/comments')
+  async getComments(
+    @Param('id') taskId: string,
+    @CurrentUser() user: User,
+  ) {
+    const comments = await this.tasksService.findComments(taskId, user);
+    return { comments, total: comments.length };
+  }
+
+  @Post(':id/comments')
+  async addComment(
+    @Param('id') taskId: string,
+    @Body() body: { content: string },
+    @CurrentUser() user: User,
+  ) {
+    return this.tasksService.addComment(taskId, body.content, user);
+  }
 }

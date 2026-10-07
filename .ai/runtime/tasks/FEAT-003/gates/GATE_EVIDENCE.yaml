@@ -1,0 +1,30 @@
+gate_id: G1_REQUIREMENT
+status: PASS
+timestamp: "2026-10-07T03:16:30Z"
+evidence:
+  - Acceptance criteria and task contract established for Subtask Management (Module 4) & Task Comments (Module 5).
+---
+gate_id: G2_ARCHITECTURE
+status: PASS
+timestamp: "2026-10-07T03:16:30Z"
+evidence:
+  - Clean separation across shared contracts, NestJS modular tasks controller/service, and Next.js client UI.
+---
+gate_id: G4_CONTRACT
+status: PASS
+timestamp: "2026-10-07T03:16:30Z"
+evidence:
+  - Subtask, TaskComment, CreateSubtaskDto, UpdateSubtaskDto, CreateCommentDto exported and compiled cleanly in @wms/shared.
+---
+gate_id: G5_QUALITY
+status: PASS
+timestamp: "2026-10-07T03:16:30Z"
+evidence:
+  - Full deterministic test suite passes: 23 passing tests (shared 1/1, api 13/13, web 9/9).
+  - Next.js production build compiled cleanly.
+---
+gate_id: G8_UI
+status: PASS
+timestamp: "2026-10-07T03:16:30Z"
+evidence:
+  - TaskDetailModal updated with interactive tabbed navigation (Overview, Subtasks checklist with progress bar, Activity notes composer and timeline).

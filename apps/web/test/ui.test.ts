@@ -108,4 +108,13 @@ test('WMS Web UI Deterministic Test Suite', async (t) => {
     });
     assert.ok(teacherNav);
   });
+
+  await t.test('API Client Subtasks & Comments (Module 4 & 5): provides required methods', () => {
+    assert.strictEqual(typeof apiClient.getSubtasks, 'function');
+    assert.strictEqual(typeof apiClient.createSubtask, 'function');
+    assert.strictEqual(typeof apiClient.toggleSubtask, 'function');
+    assert.strictEqual(typeof apiClient.deleteSubtask, 'function');
+    assert.strictEqual(typeof apiClient.getComments, 'function');
+    assert.strictEqual(typeof apiClient.addComment, 'function');
+  });
 });

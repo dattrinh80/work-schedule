@@ -1,11 +1,13 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { Role, TaskStatus, TaskPriority, AssignmentTargetType, User, Facility, Task } from '@wms/shared';
+import { Role, TaskStatus, TaskPriority, AssignmentTargetType, User, Facility, Task, Subtask, TaskComment } from '@wms/shared';
 
 export interface DatabaseStore {
   facilities: Map<string, Facility>;
   users: Map<string, User & { passwordHash: string }>;
   tasks: Map<string, Task>;
+  subtasks: Map<string, Subtask>;
+  comments: Map<string, TaskComment>;
 }
 
 @Injectable()
@@ -14,6 +16,8 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     facilities: new Map(),
     users: new Map(),
     tasks: new Map(),
+    subtasks: new Map(),
+    comments: new Map(),
   };
 
   async onModuleInit() {
@@ -24,6 +28,8 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     this.store.facilities.clear();
     this.store.users.clear();
     this.store.tasks.clear();
+    this.store.subtasks.clear();
+    this.store.comments.clear();
   }
 
   async seedInitialData() {
@@ -179,5 +185,63 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
       facility: { id: westFacility.id, name: westFacility.name, code: westFacility.code },
     };
     this.store.tasks.set(taskWestId, westTask);
+
+    // Seed Demo Subtasks
+    const subtask1: Subtask = {
+      id: 'sub-001',
+      taskId: taskId,
+      title: 'Verify student prerequisite test scores',
+      isCompleted: true,
+      assigneeUserId: staffId,
+      assigneeUser: { id: staffUser.id, fullName: staffUser.fullName },
+      completedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    const subtask2: Subtask = {
+      id: 'sub-002',
+      taskId: taskId,
+      title: 'Print official IELTS course syllabus & handouts',
+      isCompleted: false,
+      assigneeUserId: staffId,
+      assigneeUser: { id: staffUser.id, fullName: staffUser.fullName },
+      completedAt: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    const subtask3: Subtask = {
+      id: 'sub-003',
+      taskId: taskId,
+      title: 'Send welcome SMS to enrolled students',
+      isCompleted: false,
+      assigneeUserId: staffId,
+      assigneeUser: { id: staffUser.id, fullName: staffUser.fullName },
+      completedAt: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    this.store.subtasks.set(subtask1.id, subtask1);
+    this.store.subtasks.set(subtask2.id, subtask2);
+    this.store.subtasks.set(subtask3.id, subtask3);
+
+    // Seed Demo Comments
+    const comment1: TaskComment = {
+      id: 'comment-001',
+      taskId: taskId,
+      authorId: mgrCentralId,
+      content: 'Please ensure students with Band score < 5.0 are flagged for placement reassessment.',
+      author: { id: mgrCentralUser.id, fullName: mgrCentralUser.fullName, email: mgrCentralUser.email },
+      createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+    };
+    const comment2: TaskComment = {
+      id: 'comment-002',
+      taskId: taskId,
+      authorId: staffId,
+      content: 'Understood. Already checked the scores and printed handouts for batch A.',
+      author: { id: staffUser.id, fullName: staffUser.fullName, email: staffUser.email },
+      createdAt: new Date(Date.now() - 1800000).toISOString(),
+    };
+    this.store.comments.set(comment1.id, comment1);
+    this.store.comments.set(comment2.id, comment2);
   }
 }

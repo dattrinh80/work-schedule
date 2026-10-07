@@ -1,0 +1,54 @@
+task_id: FEAT-003
+status: REVIEWING
+workflow_version: "4.1.0"
+iterations: 1
+changed_files:
+  - packages/shared/src/types/models.ts
+  - packages/shared/src/contracts/subtask.contract.ts
+  - packages/shared/src/contracts/comment.contract.ts
+  - packages/shared/src/index.ts
+  - apps/api/src/prisma/prisma.service.ts
+  - apps/api/src/tasks/tasks.service.ts
+  - apps/api/src/tasks/tasks.controller.ts
+  - apps/api/test/api.test.ts
+  - apps/web/src/lib/api.ts
+  - apps/web/src/components/task-detail-modal.tsx
+  - apps/web/src/app/page.tsx
+  - apps/web/test/ui.test.ts
+blocking_issues: []
+gate_history:
+  - gate_id: G1_REQUIREMENT
+    status: PASS
+    severity: blocking
+  - gate_id: G2_ARCHITECTURE
+    status: PASS
+    severity: blocking
+  - gate_id: G4_CONTRACT
+    status: PASS
+    severity: blocking
+  - gate_id: G5_QUALITY
+    status: PASS
+    severity: blocking
+  - gate_id: G8_UI
+    status: PASS
+    severity: blocking
+workflow: feature
+current_node: diff_review
+node_history:
+  - node: intake
+    time: '2026-10-07T03:10:35.000000+00:00'
+  - node: requirement_gate
+    time: '2026-10-07T03:16:30.000000+00:00'
+  - node: compile_context
+    time: '2026-10-07T03:16:31.000000+00:00'
+  - node: architecture_gate
+    time: '2026-10-07T03:16:32.000000+00:00'
+  - node: contract_gate
+    time: '2026-10-07T03:16:33.000000+00:00'
+  - node: quality_gate
+    time: '2026-10-07T03:16:35.000000+00:00'
+  - node: ui_gate
+    time: '2026-10-07T03:16:36.000000+00:00'
+  - node: diff_review
+    time: '2026-10-07T03:16:37.000000+00:00'
+repair_attempts: 0

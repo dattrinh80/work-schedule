@@ -67,4 +67,27 @@ export interface Task {
   creator?: Partial<User> | null;
   assigneeUser?: Partial<User> | null;
   facility?: Partial<Facility> | null;
+  subtasks?: Subtask[];
+  commentsCount?: number;
+}
+
+export interface Subtask {
+  id: string;
+  taskId: string;
+  title: string;
+  isCompleted: boolean;
+  assigneeUserId?: string | null;
+  assigneeUser?: Partial<User> | null;
+  completedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TaskComment {
+  id: string;
+  taskId: string;
+  authorId: string;
+  content: string;
+  author?: Partial<User> | null;
+  createdAt: string;
 }

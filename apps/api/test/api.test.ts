@@ -191,5 +191,73 @@ test('WMS Backend API Integration Suite', async (t) => {
     }
   });
 
+  await t.test('Subtasks (Module 4): creates, toggles, lists, and deletes subtasks', async () => {
+    const adminUser = await authService.validateUser('usr-admin-01');
+
+    // List seeded subtasks for demo task
+    const initialSubtasks = await tasksService.findSubtasks('task-demo-01', adminUser);
+    assert.ok(initialSubtasks.length >= 3, 'Should have at least 3 initial seeded subtasks');
+
+    // Create a new subtask
+    const newSubtask = await tasksService.createSubtask(
+      'task-demo-01',
+      { title: 'New Checklist Step 4' },
+      adminUser,
+    );
+    assert.strictEqual(newSubtask.title, 'New Checklist Step 4');
+    assert.strictEqual(newSubtask.isCompleted, false);
+
+    // Toggle subtask completion
+    const toggled = await tasksService.toggleSubtask(
+      'task-demo-01',
+      newSubtask.id,
+      true,
+      adminUser,
+    );
+    assert.strictEqual(toggled.isCompleted, true);
+    assert.ok(toggled.completedAt);
+
+    // Untoggle
+    const untoggled = await tasksService.toggleSubtask(
+      'task-demo-01',
+      newSubtask.id,
+      false,
+      adminUser,
+    );
+    assert.strictEqual(untoggled.isCompleted, false);
+    assert.strictEqual(untoggled.completedAt, null);
+
+    // Delete subtask
+    const delRes = await tasksService.removeSubtask(
+      'task-demo-01',
+      newSubtask.id,
+      adminUser,
+    );
+    assert.strictEqual(delRes.success, true);
+  });
+
+  await t.test('Task Comments (Module 5): lists comments and posts new comment', async () => {
+    const staffUser = await authService.validateUser('usr-staff-01');
+
+    // List initial seeded comments
+    const initialComments = await tasksService.findComments('task-demo-01', staffUser);
+    assert.ok(initialComments.length >= 2, 'Should have initial seeded comments');
+
+    // Post a new comment
+    const posted = await tasksService.addComment(
+      'task-demo-01',
+      'All student prerequisites verified and confirmed with Academic team.',
+      staffUser,
+    );
+    assert.ok(posted.id);
+    assert.strictEqual(posted.authorId, staffUser.id);
+    assert.strictEqual(posted.content, 'All student prerequisites verified and confirmed with Academic team.');
+    assert.strictEqual(posted.author?.fullName, staffUser.fullName);
+
+    // Verify it appears in comment list
+    const updatedComments = await tasksService.findComments('task-demo-01', staffUser);
+    assert.ok(updatedComments.some((c) => c.id === posted.id));
+  });
+
   await prisma.onModuleDestroy();
 });

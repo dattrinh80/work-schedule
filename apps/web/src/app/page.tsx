@@ -533,6 +533,7 @@ export default function WmsApp() {
           <TaskDetailModal
             isOpen={isDetailModalOpen}
             task={selectedTask}
+            currentUser={currentUser}
             onClose={() => {
               setIsDetailModalOpen(false);
               setSelectedTask(null);

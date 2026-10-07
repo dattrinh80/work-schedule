@@ -1,0 +1,39 @@
+id: FEAT-003
+type: FEATURE
+title: Subtasks Management and Task Activity Comments
+objective: Implement hierarchical subtasks (checklist/breakdown with progress tracking) and task activity communication (comments and status audit timeline) across shared contracts, NestJS backend API, and Next.js frontend UI.
+scope:
+  include:
+    - packages/shared/src/types/models.ts
+    - packages/shared/src/contracts/subtask.contract.ts
+    - packages/shared/src/contracts/comment.contract.ts
+    - packages/shared/src/index.ts
+    - apps/api/src/tasks/
+    - apps/api/src/prisma/prisma.service.ts
+    - apps/api/test/
+    - apps/web/src/components/task-detail-modal.tsx
+    - apps/web/src/components/task-list.tsx
+    - apps/web/src/lib/api.ts
+    - apps/web/test/
+  exclude:
+    - external email/SMS notification delivery
+    - file attachments binary storage (Module 6 reserved for later)
+source_of_truth:
+  - docs/product/prd-master.md
+  - docs/adr/ADR-001-microservices-vs-monorepo.md
+  - docs/adr/ADR-002-authentication-and-hierarchical-rbac.md
+constraints:
+  - strict TypeScript compilation across all packages
+  - full backwards compatibility with existing task lifecycle and tests
+  - preserve RBAC authorization rules (teachers scoped to assigned tasks, managers to branch)
+  - high-fidelity UI matching established enterprise SaaS design system
+acceptance_criteria:
+  - Subtask entity defined with title, isCompleted, taskId, assigneeUserId, createdAt, completedAt
+  - TaskComment entity defined with content, taskId, authorId, author details, createdAt
+  - API endpoints for listing/creating/toggling subtasks under a task
+  - API endpoints for listing/posting comments under a task
+  - TaskDetailModal renders subtasks checklist with add subtask input, completion toggle, and progress bar
+  - TaskDetailModal renders activity feed with comment composer and history
+  - Deterministic tests pass across shared, api, and web packages
+risk: medium
+unresolved_questions: []

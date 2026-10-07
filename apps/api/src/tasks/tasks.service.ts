@@ -6,7 +6,9 @@ import { UpdateTaskStatusInputDto } from './dto/update-status.dto';
 import {
   AssignmentTargetType,
   Role,
+  Subtask,
   Task,
+  TaskComment,
   TaskFilterDto,
   TaskListResponseDto,
   TaskPriority,
@@ -184,5 +186,124 @@ export class TasksService {
 
     this.prisma.store.tasks.delete(id);
     return { success: true, id };
+  }
+
+  // --- Subtask Management (PRD Module 4) ---
+
+  async findSubtasks(taskId: string, currentUser: User): Promise<Subtask[]> {
+    await this.findOne(taskId, currentUser);
+    const subtasks = Array.from(this.prisma.store.subtasks.values()).filter(
+      (s) => s.taskId === taskId,
+    );
+    return subtasks.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  }
+
+  async createSubtask(
+    taskId: string,
+    dto: { title: string; assigneeUserId?: string },
+    currentUser: User,
+  ): Promise<Subtask> {
+    await this.findOne(taskId, currentUser);
+    if (!dto.title?.trim()) {
+      throw new BadRequestException('Subtask title is required');
+    }
+
+    let assigneeUser = null;
+    if (dto.assigneeUserId) {
+      const u = this.prisma.store.users.get(dto.assigneeUserId);
+      if (u) {
+        assigneeUser = { id: u.id, fullName: u.fullName };
+      }
+    }
+
+    const id = `sub-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    const now = new Date().toISOString();
+    const subtask: Subtask = {
+      id,
+      taskId,
+      title: dto.title.trim(),
+      isCompleted: false,
+      assigneeUserId: dto.assigneeUserId || null,
+      assigneeUser,
+      completedAt: null,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    this.prisma.store.subtasks.set(id, subtask);
+    return subtask;
+  }
+
+  async toggleSubtask(
+    taskId: string,
+    subtaskId: string,
+    isCompleted: boolean,
+    currentUser: User,
+  ): Promise<Subtask> {
+    await this.findOne(taskId, currentUser);
+    const subtask = this.prisma.store.subtasks.get(subtaskId);
+    if (!subtask || subtask.taskId !== taskId) {
+      throw new NotFoundException(`Subtask with ID ${subtaskId} not found under task ${taskId}`);
+    }
+
+    subtask.isCompleted = isCompleted;
+    subtask.completedAt = isCompleted ? new Date().toISOString() : null;
+    subtask.updatedAt = new Date().toISOString();
+    this.prisma.store.subtasks.set(subtaskId, subtask);
+    return subtask;
+  }
+
+  async removeSubtask(
+    taskId: string,
+    subtaskId: string,
+    currentUser: User,
+  ): Promise<{ success: boolean; id: string }> {
+    await this.findOne(taskId, currentUser);
+    const subtask = this.prisma.store.subtasks.get(subtaskId);
+    if (!subtask || subtask.taskId !== taskId) {
+      throw new NotFoundException(`Subtask with ID ${subtaskId} not found`);
+    }
+
+    this.prisma.store.subtasks.delete(subtaskId);
+    return { success: true, id: subtaskId };
+  }
+
+  // --- Task Comments & Activity (PRD Module 5) ---
+
+  async findComments(taskId: string, currentUser: User): Promise<TaskComment[]> {
+    await this.findOne(taskId, currentUser);
+    const comments = Array.from(this.prisma.store.comments.values()).filter(
+      (c) => c.taskId === taskId,
+    );
+    return comments.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  }
+
+  async addComment(
+    taskId: string,
+    content: string,
+    currentUser: User,
+  ): Promise<TaskComment> {
+    await this.findOne(taskId, currentUser);
+    if (!content?.trim()) {
+      throw new BadRequestException('Comment content cannot be empty');
+    }
+
+    const id = `comment-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    const comment: TaskComment = {
+      id,
+      taskId,
+      authorId: currentUser.id,
+      content: content.trim(),
+      author: {
+        id: currentUser.id,
+        fullName: currentUser.fullName,
+        email: currentUser.email,
+        role: currentUser.role,
+      },
+      createdAt: new Date().toISOString(),
+    };
+
+    this.prisma.store.comments.set(id, comment);
+    return comment;
   }
 }
