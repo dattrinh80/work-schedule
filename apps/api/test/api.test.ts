@@ -151,5 +151,45 @@ test('WMS Backend API Integration Suite', async (t) => {
     }
   });
 
+  await t.test('Auth: logs in successfully with facility manager credentials', async () => {
+    const resCentral = await authService.login({
+      email: 'manager.central@wms.local',
+      password: 'Password123!',
+    });
+    assert.strictEqual(resCentral.user.role, Role.FACILITY_MANAGER);
+    assert.strictEqual(resCentral.user.facilityId, 'fac-001');
+
+    const resWest = await authService.login({
+      email: 'manager.west@wms.local',
+      password: 'Password123!',
+    });
+    assert.strictEqual(resWest.user.role, Role.FACILITY_MANAGER);
+    assert.strictEqual(resWest.user.facilityId, 'fac-002');
+  });
+
+  await t.test('Tasks: filters tasks by facilityId query parameter', async () => {
+    const adminUser = await authService.validateUser('usr-admin-01');
+
+    // Create a West Campus task
+    await tasksService.create(
+      {
+        title: 'West Campus Lab Setup',
+        facilityId: 'fac-002',
+      },
+      adminUser,
+    );
+
+    const centralTasks = await tasksService.findAll({ facilityId: 'fac-001' }, adminUser);
+    for (const t of centralTasks.tasks) {
+      assert.strictEqual(t.facilityId, 'fac-001');
+    }
+
+    const westTasks = await tasksService.findAll({ facilityId: 'fac-002' }, adminUser);
+    assert.ok(westTasks.tasks.length > 0);
+    for (const t of westTasks.tasks) {
+      assert.strictEqual(t.facilityId, 'fac-002');
+    }
+  });
+
   await prisma.onModuleDestroy();
 });

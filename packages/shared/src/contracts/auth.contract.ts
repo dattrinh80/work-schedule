@@ -11,3 +11,8 @@ export interface LoginResponseDto {
 }
 
 export interface UserProfileDto extends User {}
+
+export interface ActiveScope {
+  facilityId: string | 'ALL';
+  facilityName?: string;
+}
