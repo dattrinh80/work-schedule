@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ActiveScope, CreateTaskDto, Facility, Role, Task, TaskStatus, User } from '@wms/shared';
 import { Navbar } from '../components/navbar.js';
+import { Sidebar } from '../components/sidebar.js';
 import { TaskList } from '../components/task-list.js';
 import { CreateTaskModal } from '../components/create-task-modal.js';
 import { TaskDetailModal } from '../components/task-detail-modal.js';
@@ -352,6 +353,9 @@ export default function WmsApp() {
     setIsDetailModalOpen(true);
   };
 
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [activeMenuTab, setActiveMenuTab] = useState('operational-tasks');
+
   if (!currentUser) {
     return (
       <LoginForm
@@ -376,7 +380,8 @@ export default function WmsApp() {
       : currentUser.facilityId || facilities[0]?.id || 'fac-001';
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-canvas flex flex-col font-sans text-zinc-900 antialiased">
+      {/* 1. Global Enterprise Topbar */}
       <Navbar
         currentUser={currentUser}
         facilityName={activeFacilityName}
@@ -384,113 +389,159 @@ export default function WmsApp() {
         activeScope={activeScope}
         onScopeChange={handleScopeChange}
         onLogout={handleLogout}
+        onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
       />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 space-y-6">
-        <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center space-x-2 text-indigo-900 font-medium">
-            <span>Signed in as:</span>
-            <strong className="text-zinc-900">{currentUser.fullName}</strong>
-            <span className="bg-indigo-200 text-indigo-800 px-2 py-0.5 rounded font-bold">
-              {currentUser.role}
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-zinc-500">Quick Switch:</span>
-            <button
-              onClick={() => handleLogin('admin@wms.local')}
-              className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                currentUser.email === 'admin@wms.local'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
-              }`}
-            >
-              Admin (Global)
-            </button>
-            <button
-              onClick={() => handleLogin('manager.central@wms.local')}
-              className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                currentUser.email === 'manager.central@wms.local'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
-              }`}
-            >
-              Central Mgr
-            </button>
-            <button
-              onClick={() => handleLogin('manager.west@wms.local')}
-              className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                currentUser.email === 'manager.west@wms.local'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
-              }`}
-            >
-              West Mgr
-            </button>
-            <button
-              onClick={() => handleLogin('teacher.sarah@wms.local')}
-              className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                currentUser.email === 'teacher.sarah@wms.local'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
-              }`}
-            >
-              Teacher Sarah
-            </button>
-          </div>
-        </div>
+      {/* 2. Main Shell Layout with Fixed Left Sidebar */}
+      <div className="flex-1 flex w-full">
+        <Sidebar
+          currentTab={activeMenuTab}
+          onSelectTab={setActiveMenuTab}
+          isOpenOnMobile={isMobileSidebarOpen}
+          onCloseMobile={() => setIsMobileSidebarOpen(false)}
+        />
 
-        {errorMsg && (
-          <div className="bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-lg text-xs">
-            {errorMsg}
-          </div>
-        )}
+        {/* 3. Main Operational Content Canvas */}
+        <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+          {/* Breadcrumb Path matching reference */}
+          <nav className="flex items-center space-x-2 text-xs text-zinc-500">
+            <button
+              type="button"
+              onClick={() => setActiveMenuTab('dashboard')}
+              className="hover:text-zinc-900 transition-colors flex items-center"
+            >
+              <svg className="w-3.5 h-3.5 text-zinc-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </button>
+            <span className="text-zinc-400">›</span>
+            <span className="font-medium text-zinc-700">Operational Tasks</span>
+          </nav>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
-              Operational Task Board
-            </h1>
-            <p className="text-sm text-zinc-500">
-              Manage cross-facility assignments, academic schedules, and operational workflows.
-            </p>
-          </div>
-        </div>
+          {/* Header Row: Title & Subtitle on left, Quick Switch pill panel on right */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-extrabold text-zinc-900 tracking-tight">
+                Operational Task Board
+              </h1>
+              <p className="text-xs lg:text-sm text-zinc-500 mt-1 font-normal">
+                Manage cross-facility assignments, academic schedules, and operational workflows.
+              </p>
+            </div>
 
-        {loading && tasks.length === 0 ? (
-          <div className="p-12 text-center text-zinc-400 text-sm bg-white rounded-xl border border-zinc-200">
-            Loading operational tasks...
+            {/* Quick Switch Bar matching reference screenshot */}
+            <div className="flex items-center flex-wrap gap-2 p-1.5 bg-surface rounded-card border border-border-default shadow-subtle text-xs">
+              <div className="flex items-center space-x-1.5 px-2 text-zinc-500 font-semibold text-[11px] uppercase tracking-wider">
+                <svg className="w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+                <span>Quick Switch</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handleLogin('admin@wms.local')}
+                className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
+                  currentUser.email === 'admin@wms.local'
+                    ? 'bg-brand-600 text-white shadow-subtle'
+                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                }`}
+              >
+                Admin (Global)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleLogin('manager.central@wms.local')}
+                className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
+                  currentUser.email === 'manager.central@wms.local'
+                    ? 'bg-brand-600 text-white shadow-subtle'
+                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                }`}
+              >
+                Central Mgr
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleLogin('manager.west@wms.local')}
+                className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
+                  currentUser.email === 'manager.west@wms.local'
+                    ? 'bg-brand-600 text-white shadow-subtle'
+                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                }`}
+              >
+                West Mgr
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleLogin('teacher.sarah@wms.local')}
+                className={`px-3 py-1.5 rounded-control text-xs font-semibold transition-all ${
+                  currentUser.email === 'teacher.sarah@wms.local'
+                    ? 'bg-brand-600 text-white shadow-subtle'
+                    : 'bg-surface text-zinc-700 hover:bg-zinc-50 border border-border-default'
+                }`}
+              >
+                Teacher Sarah
+              </button>
+            </div>
           </div>
-        ) : (
-          <TaskList
-            tasks={tasks}
-            onStatusChange={handleStatusChange}
-            onOpenCreateModal={() => setIsCreateModalOpen(true)}
-            onSelectTask={handleSelectTask}
-            onDeleteTask={handleDeleteTask}
+
+          {errorMsg && (
+            <div className="bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-control text-xs flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <span>⚠️</span>
+                <span>{errorMsg}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setErrorMsg(null)}
+                className="text-amber-600 hover:text-amber-800 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          {/* Operational Task List Area */}
+          {loading && tasks.length === 0 ? (
+            <div className="p-16 text-center text-zinc-400 text-xs bg-surface rounded-card border border-border-default shadow-subtle">
+              <div className="inline-block animate-spin w-5 h-5 border-2 border-brand-600 border-t-transparent rounded-full mb-2" />
+              <div>Loading operational tasks...</div>
+            </div>
+          ) : (
+            <TaskList
+              tasks={tasks}
+              onStatusChange={handleStatusChange}
+              onOpenCreateModal={() => setIsCreateModalOpen(true)}
+              onSelectTask={handleSelectTask}
+              onDeleteTask={handleDeleteTask}
+            />
+          )}
+
+          {/* Modals */}
+          <CreateTaskModal
+            isOpen={isCreateModalOpen}
+            onClose={() => setIsCreateModalOpen(false)}
+            onSubmit={handleCreateTask}
+            facilities={facilities}
+            users={users}
+            defaultFacilityId={defaultFacilityIdForCreation}
           />
-        )}
 
-        <CreateTaskModal
-          isOpen={isCreateModalOpen}
-          onClose={() => setIsCreateModalOpen(false)}
-          onSubmit={handleCreateTask}
-          facilities={facilities}
-          users={users}
-          defaultFacilityId={defaultFacilityIdForCreation}
-        />
-
-        <TaskDetailModal
-          isOpen={isDetailModalOpen}
-          task={selectedTask}
-          onClose={() => {
-            setIsDetailModalOpen(false);
-            setSelectedTask(null);
-          }}
-          onStatusChange={handleStatusChange}
-          onDelete={handleDeleteTask}
-        />
-      </main>
+          <TaskDetailModal
+            isOpen={isDetailModalOpen}
+            task={selectedTask}
+            onClose={() => {
+              setIsDetailModalOpen(false);
+              setSelectedTask(null);
+            }}
+            onStatusChange={handleStatusChange}
+            onDelete={handleDeleteTask}
+          />
+        </main>
+      </div>
     </div>
   );
 }
